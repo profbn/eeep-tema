@@ -5,10 +5,10 @@ Tema institucional, responsivo e acessível (padrão eMAG / WCAG) desenvolvido p
 ## 🚀 Funcionalidades
 - **Recursos de Acessibilidade**: Aumento/diminuição de fonte (`A+`, `A-`, `A`) e modo de **Alto Contraste** persistente via `localStorage`.
 - **Atalhos e Editais Locais**: Acesso direto a documentos em PDF hospedados no próprio servidor (`/pdf/edital-2026.pdf` e `/pdf/resultado-2025.pdf`).
-- **Grelha de Cursos Técnicos**: Mapeamento e exibição dos 5 cursos da instituição (*Administração*, *Edificações*, *Eletromecânica*, *Logística* e *Informática*).
+- **Grade de Cursos Técnicos**: Mapeamento e exibição dos 5 cursos da instituição (*Administração*, *Edificações*, *Eletromecânica*, *Logística* e *Informática*).
 - **Esquema de Cores Institucional**: Paleta baseada nas cores do Ceará/Brasil (Verde, Azul e Amarelo).
 
-## 📁 Estrutura de Ficheiros
+## 📁 Estrutura de Arquivos
 - `header.php` — Cabeçalho com navegação e barra superior de acessibilidade.
 - `footer.php` — Rodapé e scripts JS de acessibilidade.
 - `front-page.php` — Modelo da página inicial.
