@@ -10,9 +10,22 @@ if (!defined('ABSPATH')) exit;
     </div>
 </footer>
 
+<!-- WIDGET OFICIAL VLIBRAS (ACESSIBILIDADE EM LIBRAS) -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 <script>
-// Menu Mobile (Hambúrguer)
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<!-- SCRIPTS DE ACESSIBILIDADE E MENU MOBILE -->
+<script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Menu Mobile (Hambúrguer)
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
@@ -25,13 +38,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Restaurar Alto Contraste salvo
+    // Restaurar Alto Contraste salvo no navegador
     if (localStorage.getItem('eeep_alto_contraste') === 'ativado') {
         document.body.classList.add('alto-contraste');
     }
 });
 
-// Funções de Acessibilidade
+// Funções de Redimensionamento de Fonte
 let tamanhoFonteAtual = 100;
 
 function alterarFonte(fator) {
