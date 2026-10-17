@@ -1,18 +1,26 @@
-# Tema WordPress — EEEP Professor Antonio Valmir da Silva
+# 🏫 Tema WordPress Institucional e Acessível para EEEPs
 
-Tema institucional, responsivo e acessível (padrão eMAG / WCAG) desenvolvido para a EEEP Professor Antonio Valmir da Silva.
+Tema WordPress leve, responsivo e adaptado às normas de acessibilidade (**eMAG / WCAG**), desenvolvido originalmente para a **EEEP Professor Antonio Valmir da Silva** e preparado para fácil reuso em outras instituições de ensino.
 
-## 🚀 Funcionalidades
-- **Recursos de Acessibilidade**: Aumento/diminuição de fonte (`A+`, `A-`, `A`) e modo de **Alto Contraste** persistente via `localStorage`.
-- **Atalhos e Editais Locais**: Acesso direto a documentos em PDF hospedados no próprio servidor (`/pdf/edital-2026.pdf` e `/pdf/resultado-2025.pdf`).
-- **Grade de Cursos Técnicos**: Mapeamento e exibição dos 5 cursos da instituição (*Administração*, *Edificações*, *Eletromecânica*, *Logística* e *Informática*).
-- **Esquema de Cores Institucional**: Paleta baseada nas cores do Ceará/Brasil (Verde, Azul e Amarelo).
+---
 
-## 📁 Estrutura de Arquivos
-- `header.php` — Cabeçalho com navegação e barra superior de acessibilidade.
-- `footer.php` — Rodapé e scripts JS de acessibilidade.
-- `front-page.php` — Modelo da página inicial.
-- `single-curso.php` — Modelo individual dos cursos técnicos.
-- `style.css` — Estilos globais e regras do modo alto contraste.
-- `functions.php` — Configurações do tema e enfileiramento de recursos.
-- `pdf/` — Diretório interno para hospedagem local dos editais.
+## 🚀 Funcionalidades Principais
+- **Acessibilidade Completa**: Ajuste dinâmico de tamanho de fonte (`A+`, `A-`, `A`) e modo de **Alto Contraste** com persistência no navegador via `localStorage`.
+- **Menu Mobile Responsivo**: Navegação adaptada com botão hambúrguer para dispositivos móveis (smartphones e tablets).
+- **Hospedagem Local de Editais (PDF)**: Links diretos para documentos em `/pdf/edital-2026.pdf` e `/pdf/resultado-2025.pdf`, sem dependência de plataformas externas.
+- **Grade de Cursos Técnicos**: Estrutura pronta para os 5 cursos técnicos (*Administração*, *Edificações*, *Eletromecânica*, *Logística* e *Informática*).
+- **Cores Institucionais Customizáveis**: Paleta configurada por variáveis CSS globais.
+
+---
+
+## 🛠️ Como adaptar este tema para a sua escola
+
+Se você é gestor ou desenvolvedor de outra escola e deseja usar este tema:
+
+### 1. Alterar Cores no `style.css`
+```css
+:root {
+    --verde-brasil: #008736;
+    --azul-brasil: #002776;
+    --amarelo-brasil: #ffdf00;
+}
