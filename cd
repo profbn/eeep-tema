@@ -1,0 +1,327 @@
+<?php
+/*
+Plugin Name: EEEP Manutenção & Acessibilidade Global (MU)
+Description: Sistema unificado de Manutenção, Construção e Acessibilidade para WordPress Multisite.
+Version: 3.0
+Author: EEEP
+*/
+
+if (!defined('ABSPATH')) exit;
+
+// 1. REGISTRO DO MENU NO PAINEL (REDE E SUBSITES)
+add_action('network_admin_menu', 'eeep_mc_registrar_menu');
+add_action('admin_menu', 'eeep_mc_registrar_menu');
+
+function eeep_mc_registrar_menu() {
+    add_menu_page('M/C Escola', 'M/C Escola', 'manage_options', 'eeep-mc', 'eeep_mc_renderizar_painel', 'dashicons-hammer', 90);
+}
+
+// 2. PROCESSAMENTO E SALVAMENTO DAS OPÇÕES NA REDE
+add_action('admin_init', function() {
+    if (isset($_POST['eeep_mc_nonce']) && wp_verify_nonce($_POST['eeep_mc_nonce'], 'eeep_mc_salvar')) {
+        if (isset($_POST['emc_modo'])) update_site_option('emc_modo', sanitize_text_field($_POST['emc_modo']));
+        if (isset($_POST['emc_bg_url'])) update_site_option('emc_bg_url', esc_url_raw($_POST['emc_bg_url']));
+        if (isset($_POST['emc_logo_url'])) update_site_option('emc_logo_url', esc_url_raw($_POST['emc_logo_url']));
+        if (isset($_POST['emc_telefone'])) update_site_option('emc_telefone', sanitize_text_field($_POST['emc_telefone']));
+        if (isset($_POST['emc_email'])) update_site_option('emc_email', sanitize_email($_POST['emc_email']));
+        if (isset($_POST['emc_instagram'])) update_site_option('emc_instagram', sanitize_text_field($_POST['emc_instagram']));
+
+        add_action('admin_notices', function() {
+            echo '<div class="notice notice-success is-dismissible"><p><b>Configurações salvas com sucesso em toda a rede!</b></p></div>';
+        });
+    }
+});
+
+// 3. INTERFACE DE CONFIGURAÇÃO NO PAINEL ADMINISTRATIVO
+function eeep_mc_renderizar_painel() {
+    $modo      = get_site_option('emc_modo', '0');
+    $bg_url    = get_site_option('emc_bg_url', '');
+    $logo_url  = get_site_option('emc_logo_url', '');
+    $telefone  = get_site_option('emc_telefone', '');
+    $email     = get_site_option('emc_email', '');
+    $instagram = get_site_option('emc_instagram', '');
+    ?>
+    <div class="wrap">
+        <h1>Painel de Manutenção e Construção (EEEP Global)</h1>
+        <p>Gerencie o estado de exibição do portal da escola e personalize as informações de contato do visitante.</p>
+        <hr>
+        <form method="post" action="">
+            <?php wp_nonce_field('eeep_mc_salvar', 'eeep_mc_nonce'); ?>
+            <table class="form-table" role="presentation">
+                <tr>
+                    <th scope="row"><label>Modo de Exibição:</label></th>
+                    <td>
+                        <fieldset>
+                            <label style="display:block; margin-bottom:10px;">
+                                <input type="radio" name="emc_modo" value="0" <?php checked($modo, '0'); ?>> 
+                                <b>Desativado</b> — Site visível normalmente
+                            </label>
+                            <label style="display:block; margin-bottom:10px;">
+                                <input type="radio" name="emc_modo" value="503" <?php checked($modo, '503'); ?>> 
+                                <b>Modo Manutenção</b> — Exibe aviso de manutenção (HTTP 503)
+                            </label>
+                            <label style="display:block; margin-bottom:10px;">
+                                <input type="radio" name="emc_modo" value="200" <?php checked($modo, '200'); ?>> 
+                                <b>Modo Construção</b> — Exibe aviso de novo portal em breve (HTTP 200)
+                            </label>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="emc_bg_url">Imagem de Fundo (URL):</label></th>
+                    <td>
+                        <input type="url" id="emc_bg_url" name="emc_bg_url" value="<?php echo esc_attr($bg_url); ?>" class="large-text" placeholder="https://eeep.com.br/wp-content/uploads/escola.jpg">
+                        <p class="description">URL da foto da fachada ou ambiente escolar.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="emc_logo_url">Logótipo / Brasão (URL):</label></th>
+                    <td>
+                        <input type="url" id="emc_logo_url" name="emc_logo_url" value="<?php echo esc_attr($logo_url); ?>" class="large-text" placeholder="https://eeep.com.br/wp-content/uploads/logo-eeep.png">
+                        <p class="description">Imagem do brasão ou logo com fundo transparente (PNG/SVG).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="emc_telefone">Telefone / WhatsApp:</label></th>
+                    <td>
+                        <input type="text" id="emc_telefone" name="emc_telefone" value="<?php echo esc_attr($telefone); ?>" class="regular-text" placeholder="(85) 98765-4321">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="emc_email">E-mail da Secretaria:</label></th>
+                    <td>
+                        <input type="email" id="emc_email" name="emc_email" value="<?php echo esc_attr($email); ?>" class="regular-text" placeholder="secretaria@eeep.com.br">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="emc_instagram">Instagram Oficial:</label></th>
+                    <td>
+                        <input type="text" id="emc_instagram" name="emc_instagram" value="<?php echo esc_attr($instagram); ?>" class="regular-text" placeholder="@eeep_oficial">
+                    </td>
+                </tr>
+            </table>
+            <?php submit_button('Salvar Alterações Globais'); ?>
+        </form>
+    </div>
+    <?php
+}
+
+// 4. INTERCEPTAÇÃO NO FRONT-END (EXIBIÇÃO ACESSÍVEL PARA VISITANTES)
+add_action('init', function() {
+    global $pagenow;
+
+    // LIBERAÇÃO ABSOLUTA: Admin e Tela de Login nunca são bloqueados
+    if (is_admin() || $pagenow === 'wp-login.php' || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'wp-login.php') !== false)) {
+        return;
+    }
+
+    $modo = get_site_option('emc_modo', '0');
+
+    // LIBERAÇÃO PARA USUÁRIOS AUTENTICADOS / ADMINS
+    if ($modo === '0' || is_user_logged_in() || current_user_can('manage_options')) {
+        return;
+    }
+
+    // CARREGAMENTO DE DADOS
+    $bg_url    = get_site_option('emc_bg_url', '');
+    $logo_url  = get_site_option('emc_logo_url', '');
+    $telefone  = get_site_option('emc_telefone', '');
+    $email     = get_site_option('emc_email', '');
+    $instagram = get_site_option('emc_instagram', '');
+
+    $titulo = ($modo === '503') ? 'EEEP — Em Manutenção' : 'EEEP — Em Construção';
+    $msg    = ($modo === '503') 
+        ? 'Estamos realizando manutenções de rotina na infraestrutura do portal. Voltamos em breve!' 
+        : 'O novo portal da escola está em desenvolvimento. Em breve teremos novidades!';
+
+    $bg_css      = $bg_url ? "background-image: url('" . esc_url($bg_url) . "');" : "background-color: #002752;";
+    $has_overlay = $bg_url ? '<div class="bg-overlay"></div>' : '';
+
+    $logo_html = $logo_url 
+        ? '<img src="' . esc_url($logo_url) . '" alt="Logótipo Oficial EEEP" class="card-logo">' 
+        : '';
+
+    // BLOCO DE CONTATOS
+    $contactos_html = '';
+    if ($telefone || $email || $instagram) {
+        $contactos_html .= '<div class="card-contacts" aria-label="Canais de Atendimento">';
+        $contactos_html .= '<p class="contact-title">Canais de Atendimento:</p>';
+        
+        if ($telefone) {
+            $tel_clean = preg_replace('/[^0-9+]/', '', $telefone);
+            $contactos_html .= '<a href="tel:' . esc_attr($tel_clean) . '" class="contact-item" aria-label="Telefone ' . esc_attr($telefone) . '">';
+            $contactos_html .= '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>';
+            $contactos_html .= esc_html($telefone) . '</a>';
+        }
+        if ($email) {
+            $contactos_html .= '<a href="mailto:' . esc_attr($email) . '" class="contact-item" aria-label="E-mail ' . esc_attr($email) . '">';
+            $contactos_html .= '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>';
+            $contactos_html .= esc_html($email) . '</a>';
+        }
+        if ($instagram) {
+            $insta_link = (strpos($instagram, 'http') === 0) ? $instagram : 'https://instagram.com/' . ltrim($instagram, '@');
+            $contactos_html .= '<a href="' . esc_url($insta_link) . '" target="_blank" rel="noopener noreferrer" class="contact-item" aria-label="Instagram ' . esc_attr($instagram) . '">';
+            $contactos_html .= '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>';
+            $contactos_html .= esc_html($instagram) . '</a>';
+        }
+        $contactos_html .= '</div>';
+    }
+
+    status_header((int)$modo);
+    header('Content-Type: text/html; charset=utf-8');
+
+    echo <<<HTML
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{$titulo}</title>
+<style>
+    :root {
+        --primary-color: #004085;
+        --text-color: #1a1a1a;
+        --bg-card: rgba(255, 255, 255, 0.96);
+        --card-radius: 18px;
+        --card-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+        --focus-ring: #ffbf47;
+        --font-main: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+
+    body {
+        font-family: var(--font-main);
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+    }
+
+    /* Destaque de Acessibilidade por Teclado */
+    a:focus-visible {
+        outline: 3px solid var(--focus-ring) !important;
+        outline-offset: 3px;
+    }
+
+    /* Camada de Imagem de Fundo Responsiva */
+    .bg-image {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh; height: 100dvh;
+        z-index: 0;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        {$bg_css}
+    }
+
+    /* Overlay Escuro com Contraste Garantido */
+    .bg-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh; height: 100dvh;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.55);
+    }
+
+    /* Cartão Central (Glassmorphism) */
+    .card {
+        position: relative;
+        z-index: 2;
+        background: var(--bg-card);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: var(--card-radius);
+        box-shadow: var(--card-shadow);
+        padding: 42px 32px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .card-logo {
+        max-width: 140px;
+        max-height: 100px;
+        width: auto;
+        height: auto;
+        margin: 0 auto 22px auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    .card h1 { 
+        color: var(--primary-color); 
+        font-size: 1.6rem; 
+        font-weight: 700; 
+        margin-bottom: 14px; 
+        line-height: 1.3; 
+    }
+
+    .card p { 
+        color: var(--text-color); 
+        font-size: 1.05rem; 
+        line-height: 1.6; 
+    }
+
+    /* Contatos */
+    .card-contacts {
+        margin-top: 26px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .contact-title {
+        font-size: 0.85rem !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #555 !important;
+        margin-bottom: 2px;
+    }
+
+    .contact-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--primary-color);
+        text-decoration: underline;
+        font-weight: 600;
+        font-size: 0.98rem;
+    }
+
+    .contact-item:hover {
+        color: #002752;
+    }
+
+    @media (max-width: 480px) {
+        .card { padding: 32px 20px; }
+        .card-logo { max-width: 110px; }
+        .card h1 { font-size: 1.35rem; }
+        .card p { font-size: 0.95rem; }
+    }
+</style>
+</head>
+<body>
+<div class="bg-image"></div>
+{$has_overlay}
+<main class="card" role="main">
+    {$logo_html}
+    <h1>{$titulo}</h1>
+    <p>{$msg}</p>
+    {$contactos_html}
+</main>
+</body>
+</html>
+HTML;
+    exit;
+}, 10);

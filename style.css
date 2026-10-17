@@ -1,0 +1,701 @@
+/*
+Theme Name: EEEP Tema
+Theme URI: http://eeep.com.br
+Author: EEEP Professor Antonio Valmir da Silva
+Description: Tema institucional moderno e acessível para a EEEP Professor Antonio Valmir da Silva.
+Version: 1.0
+*/
+
+/* --- VARIÁVEIS GLOBAIS --- */
+:root {
+    --verde-brasil: #008736;
+    --verde-escuro: #005a24;
+    --azul-brasil: #002776;
+    --amarelo-brasil: #ffdf00;
+    --amarelo-hover: #e6c800;
+    --cinza-fundo: #f4f6f9;
+    --texto-cor: #333333;
+    --branco: #ffffff;
+    --fonte-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* --- RESET & ESTRUTURA BASE --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fonte-main);
+    background-color: var(--cinza-fundo);
+    color: var(--texto-cor);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- BARRA DE ACESSIBILIDADE --- */
+.top-accessibility-bar {
+    background-color: var(--azul-brasil);
+    color: var(--branco);
+    padding: 8px 0;
+    font-size: 0.85rem;
+}
+
+.accessibility-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accessibility-buttons button {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--branco);
+    padding: 4px 10px;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.accessibility-buttons button:hover {
+    background: var(--amarelo-brasil);
+    color: var(--azul-brasil);
+}
+
+/* --- CABEÇALHO PRINCIPAL --- */
+.site-header {
+    background-color: var(--verde-brasil);
+    padding: 15px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.site-branding .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--branco);
+}
+
+.site-logo {
+    height: 45px;
+    width: auto;
+}
+
+.site-title-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--branco);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: var(--branco);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.nav-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-menu .nav-btn-yt {
+    background-color: var(--amarelo-brasil);
+    color: var(--azul-brasil);
+    font-weight: 700;
+}
+
+.nav-menu .nav-btn-yt:hover {
+    background-color: var(--amarelo-hover);
+}
+
+/* --- BOTÕES GERAIS --- */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--amarelo-brasil);
+    color: var(--azul-brasil);
+}
+
+.btn-primary:hover {
+    background-color: var(--amarelo-hover);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--verde-brasil);
+    color: var(--branco);
+}
+
+.btn-secondary:hover {
+    background-color: var(--verde-escuro);
+}
+
+/* --- HERO BANNER --- */
+.home-hero {
+    background: linear-gradient(135deg, var(--verde-brasil) 0%, var(--verde-escuro) 100%);
+    color: var(--branco);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.home-hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.home-hero p {
+    font-size: 1.15rem;
+    max-width: 800px;
+    margin: 0 auto 25px;
+    opacity: 0.95;
+}
+
+/* --- ATALHOS RÁPIDOS --- */
+.home-atalhos {
+    margin-top: -30px;
+    position: relative;
+    z-index: 10;
+    padding-bottom: 40px;
+}
+
+.atalhos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.atalho-card {
+    background: var(--branco);
+    padding: 22px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--texto-cor);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid var(--azul-brasil);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.atalho-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.atalho-card h3 {
+    color: var(--azul-brasil);
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+}
+
+.atalho-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* --- CURSOS TÉCNICOS --- */
+.home-cursos {
+    padding: 40px 0 60px;
+}
+
+.cursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.curso-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+}
+
+.curso-card {
+    background: var(--branco);
+    padding: 24px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid var(--verde-brasil);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.curso-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.curso-tag {
+    align-self: flex-start;
+    background: #e6f4ea;
+    color: var(--verde-brasil);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.curso-card h3 {
+    color: var(--verde-brasil);
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+.curso-card p {
+    font-size: 0.9rem;
+    color: #555;
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.curso-saiba-mais {
+    color: var(--azul-brasil);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* --- NOTÍCIAS E AVISOS --- */
+.home-noticias {
+    padding: 50px 0;
+    background-color: var(--branco);
+}
+
+.noticias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.noticia-card {
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.noticia-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.noticia-img-link img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.noticia-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.noticia-data {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.noticia-body h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.noticia-body h3 a {
+    color: var(--azul-brasil);
+    text-decoration: none;
+}
+
+.noticia-body h3 a:hover {
+    color: var(--verde-brasil);
+}
+
+.noticia-body p {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+.noticia-ler-mais {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--verde-brasil);
+    text-decoration: none;
+}
+
+.noticia-ler-mais:hover {
+    text-decoration: underline;
+}
+
+/* --- PÁGINA INTERNA DE CURSO --- */
+.curso-hero {
+    background: var(--verde-brasil);
+    color: var(--branco);
+    padding: 40px 0;
+}
+
+.voltar-link {
+    color: var(--amarelo-brasil);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.curso-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.curso-hero h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.curso-excerpt {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.curso-ficha-tecnica {
+    background: var(--branco);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 20px 0;
+}
+
+.ficha-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.ficha-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+}
+
+.ficha-label {
+    color: #64748b;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.curso-detalhes {
+    padding: 40px 0;
+}
+
+.curso-layout-grid {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .curso-layout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.curso-main-content {
+    background: var(--branco);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.entry-content h2 {
+    color: var(--verde-brasil);
+    font-size: 1.4rem;
+    margin: 25px 0 12px;
+    border-bottom: 2px solid var(--amarelo-brasil);
+    padding-bottom: 5px;
+}
+
+.entry-content p {
+    margin-bottom: 15px;
+    color: #334155;
+}
+
+.entry-content ul {
+    margin: 0 0 20px 20px;
+    color: #334155;
+}
+
+.entry-content li {
+    margin-bottom: 6px;
+}
+
+.curso-cta-box {
+    background: var(--cinza-fundo);
+    border-left: 5px solid var(--verde-brasil);
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 30px;
+}
+
+.curso-cta-box h3 {
+    color: var(--azul-brasil);
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+}
+
+.curso-cta-box p {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.widget-curso {
+    background: var(--branco);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.widget-curso h3 {
+    color: var(--azul-brasil);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--verde-brasil);
+    padding-bottom: 5px;
+}
+
+.lista-outros-cursos {
+    list-style: none;
+}
+
+.lista-outros-cursos li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+}
+
+.lista-outros-cursos a {
+    color: var(--verde-brasil);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.lista-outros-cursos a:hover {
+    text-decoration: underline;
+    color: var(--azul-brasil);
+}
+
+/* --- PÁGINA 404 --- */
+.pagina-404 {
+    padding: 60px 0;
+    background-color: var(--cinza-fundo);
+}
+
+.box-404 {
+    max-width: 650px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    border-top: 6px solid var(--verde-brasil);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.codigo-404 {
+    display: block;
+    font-size: 4.8rem;
+    font-weight: 900;
+    color: var(--azul-brasil);
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.box-404 h1 {
+    color: var(--verde-brasil);
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.box-404 p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 24px;
+}
+
+.botoes-404 {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.atalhos-404 {
+    text-align: left;
+    background: var(--cinza-fundo);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--amarelo-brasil);
+}
+
+.atalhos-404 h3 {
+    color: var(--azul-brasil);
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+}
+
+.atalhos-404 ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.atalhos-404 li {
+    margin-bottom: 8px;
+}
+
+.atalhos-404 a {
+    color: var(--verde-brasil);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.atalhos-404 a:hover {
+    text-decoration: underline;
+}
+
+/* --- RODAPÉ --- */
+.site-footer {
+    background-color: var(--azul-brasil);
+    color: var(--branco);
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    opacity: 0.9;
+}
+
+/* --- ACESSIBILIDADE E LEITORES DE TELA --- */
+.screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.screen-reader-text:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background: var(--amarelo-brasil);
+    color: var(--azul-brasil);
+    font-weight: bold;
+    z-index: 10000;
+}
+
+/* --- MODO ALTO CONTRASTE --- */
+body.alto-contraste {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+body.alto-contraste .site-header,
+body.alto-contraste .site-footer,
+body.alto-contraste .top-accessibility-bar {
+    background-color: #000000 !important;
+    border-bottom: 2px solid #ffff00 !important;
+}
+
+body.alto-contraste .atalho-card,
+body.alto-contraste .curso-card,
+body.alto-contraste .noticia-card,
+body.alto-contraste .curso-main-content,
+body.alto-contraste .widget-curso,
+body.alto-contraste .box-404 {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+    border: 1px solid #ffff00 !important;
+}
+
+body.alto-contraste a,
+body.alto-contraste h1,
+body.alto-contraste h2,
+body.alto-contraste h3 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .btn {
+    background-color: #ffff00 !important;
+    color: #000000 !important;
+}
