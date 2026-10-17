@@ -10,8 +10,28 @@ if (!defined('ABSPATH')) exit;
     </div>
 </footer>
 
-<!-- SCRIPT DE ACESSIBILIDADE (A+, A-, A, ALTO CONTRASTE) -->
 <script>
+// Menu Mobile (Hambúrguer)
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            const isActive = navMenu.classList.toggle('is-active');
+            menuToggle.classList.toggle('is-active');
+            menuToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            menuToggle.setAttribute('aria-label', isActive ? 'Fechar Menu de Navegação' : 'Abrir Menu de Navegação');
+        });
+    }
+
+    // Restaurar Alto Contraste salvo
+    if (localStorage.getItem('eeep_alto_contraste') === 'ativado') {
+        document.body.classList.add('alto-contraste');
+    }
+});
+
+// Funções de Acessibilidade
 let tamanhoFonteAtual = 100;
 
 function alterarFonte(fator) {
@@ -34,13 +54,6 @@ function alternarAltoContraste() {
         localStorage.setItem('eeep_alto_contraste', 'desativado');
     }
 }
-
-// Manter o modo de alto contraste ativo ao mudar de página
-document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('eeep_alto_contraste') === 'ativado') {
-        document.body.classList.add('alto-contraste');
-    }
-});
 </script>
 
 <?php wp_footer(); ?>

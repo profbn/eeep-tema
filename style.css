@@ -2,11 +2,10 @@
 Theme Name: EEEP Tema
 Theme URI: http://eeep.com.br
 Author: EEEP Professor Antonio Valmir da Silva
-Description: Tema institucional moderno e acessível para a EEEP Professor Antonio Valmir da Silva.
-Version: 1.0
+Description: Tema institucional moderno, responsivo e acessível para a EEEP Professor Antonio Valmir da Silva.
+Version: 1.1
 */
 
-/* --- VARIÁVEIS GLOBAIS --- */
 :root {
     --verde-brasil: #008736;
     --verde-escuro: #005a24;
@@ -19,7 +18,6 @@ Version: 1.0
     --fonte-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* --- RESET & ESTRUTURA BASE --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -39,7 +37,7 @@ body {
     padding: 0 20px;
 }
 
-/* --- BARRA DE ACESSIBILIDADE --- */
+/* ACESSIBILIDADE BARRA */
 .top-accessibility-bar {
     background-color: var(--azul-brasil);
     color: var(--branco);
@@ -70,7 +68,7 @@ body {
     color: var(--azul-brasil);
 }
 
-/* --- CABEÇALHO PRINCIPAL --- */
+/* CABEÇALHO */
 .site-header {
     background-color: var(--verde-brasil);
     padding: 15px 0;
@@ -84,8 +82,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    position: relative;
 }
 
 .site-branding .logo-link {
@@ -102,7 +99,7 @@ body {
 }
 
 .site-title-text {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--branco);
 }
@@ -137,7 +134,86 @@ body {
     background-color: var(--amarelo-hover);
 }
 
-/* --- BOTÕES GERAIS --- */
+/* BOTÃO HAMBÚRGUER PARA CELULAR */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger-bar {
+    width: 26px;
+    height: 3px;
+    background-color: var(--branco);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* COMPATIBILIDADE COM TELAS PEQUENAS (MOBILE) */
+@media (max-width: 820px) {
+    .accessibility-flex {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
+
+    .site-title-text {
+        font-size: 1rem;
+    }
+
+    .site-logo {
+        height: 36px;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--verde-escuro);
+        flex-direction: column;
+        padding: 15px 20px;
+        gap: 10px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        border-top: 3px solid var(--amarelo-brasil);
+    }
+
+    .nav-menu.is-active {
+        display: flex;
+    }
+
+    .nav-menu li {
+        width: 100%;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 12px 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    .menu-toggle.is-active .hamburger-bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.is-active .hamburger-bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.is-active .hamburger-bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+/* HERO & CONTEÚDO */
 .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -159,16 +235,6 @@ body {
     transform: translateY(-2px);
 }
 
-.btn-secondary {
-    background-color: var(--verde-brasil);
-    color: var(--branco);
-}
-
-.btn-secondary:hover {
-    background-color: var(--verde-escuro);
-}
-
-/* --- HERO BANNER --- */
 .home-hero {
     background: linear-gradient(135deg, var(--verde-brasil) 0%, var(--verde-escuro) 100%);
     color: var(--branco);
@@ -187,19 +253,18 @@ body {
 }
 
 .home-hero h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
     margin-bottom: 15px;
     font-weight: 800;
 }
 
 .home-hero p {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     max-width: 800px;
     margin: 0 auto 25px;
     opacity: 0.95;
 }
 
-/* --- ATALHOS RÁPIDOS --- */
 .home-atalhos {
     margin-top: -30px;
     position: relative;
@@ -240,7 +305,6 @@ body {
     color: #666;
 }
 
-/* --- CURSOS TÉCNICOS --- */
 .home-cursos {
     padding: 40px 0 60px;
 }
@@ -305,7 +369,6 @@ body {
     font-size: 0.85rem;
 }
 
-/* --- NOTÍCIAS E AVISOS --- */
 .home-noticias {
     padding: 50px 0;
     background-color: var(--branco);
@@ -324,19 +387,6 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.noticia-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-}
-
-.noticia-img-link img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
 }
 
 .noticia-body {
@@ -356,16 +406,11 @@ body {
 .noticia-body h3 {
     font-size: 1.1rem;
     margin-bottom: 10px;
-    line-height: 1.4;
 }
 
 .noticia-body h3 a {
     color: var(--azul-brasil);
     text-decoration: none;
-}
-
-.noticia-body h3 a:hover {
-    color: var(--verde-brasil);
 }
 
 .noticia-body p {
@@ -382,252 +427,6 @@ body {
     text-decoration: none;
 }
 
-.noticia-ler-mais:hover {
-    text-decoration: underline;
-}
-
-/* --- PÁGINA INTERNA DE CURSO --- */
-.curso-hero {
-    background: var(--verde-brasil);
-    color: var(--branco);
-    padding: 40px 0;
-}
-
-.voltar-link {
-    color: var(--amarelo-brasil);
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-block;
-    margin-bottom: 15px;
-}
-
-.curso-badge {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.curso-hero h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.curso-excerpt {
-    font-size: 1.1rem;
-    opacity: 0.9;
-}
-
-.curso-ficha-tecnica {
-    background: var(--branco);
-    border-bottom: 1px solid #e2e8f0;
-    padding: 20px 0;
-}
-
-.ficha-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-.ficha-item {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.9rem;
-}
-
-.ficha-label {
-    color: #64748b;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-.curso-detalhes {
-    padding: 40px 0;
-}
-
-.curso-layout-grid {
-    display: grid;
-    grid-template-columns: 2.5fr 1fr;
-    gap: 30px;
-}
-
-@media (max-width: 768px) {
-    .curso-layout-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.curso-main-content {
-    background: var(--branco);
-    padding: 30px;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-}
-
-.entry-content h2 {
-    color: var(--verde-brasil);
-    font-size: 1.4rem;
-    margin: 25px 0 12px;
-    border-bottom: 2px solid var(--amarelo-brasil);
-    padding-bottom: 5px;
-}
-
-.entry-content p {
-    margin-bottom: 15px;
-    color: #334155;
-}
-
-.entry-content ul {
-    margin: 0 0 20px 20px;
-    color: #334155;
-}
-
-.entry-content li {
-    margin-bottom: 6px;
-}
-
-.curso-cta-box {
-    background: var(--cinza-fundo);
-    border-left: 5px solid var(--verde-brasil);
-    padding: 20px;
-    border-radius: 6px;
-    margin-top: 30px;
-}
-
-.curso-cta-box h3 {
-    color: var(--azul-brasil);
-    font-size: 1.15rem;
-    margin-bottom: 8px;
-}
-
-.curso-cta-box p {
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    color: #555;
-}
-
-.widget-curso {
-    background: var(--branco);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-}
-
-.widget-curso h3 {
-    color: var(--azul-brasil);
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    border-bottom: 2px solid var(--verde-brasil);
-    padding-bottom: 5px;
-}
-
-.lista-outros-cursos {
-    list-style: none;
-}
-
-.lista-outros-cursos li {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 8px;
-}
-
-.lista-outros-cursos a {
-    color: var(--verde-brasil);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.lista-outros-cursos a:hover {
-    text-decoration: underline;
-    color: var(--azul-brasil);
-}
-
-/* --- PÁGINA 404 --- */
-.pagina-404 {
-    padding: 60px 0;
-    background-color: var(--cinza-fundo);
-}
-
-.box-404 {
-    max-width: 650px;
-    margin: 0 auto;
-    background: #ffffff;
-    padding: 40px 30px;
-    border-radius: 12px;
-    border-top: 6px solid var(--verde-brasil);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    text-align: center;
-}
-
-.codigo-404 {
-    display: block;
-    font-size: 4.8rem;
-    font-weight: 900;
-    color: var(--azul-brasil);
-    line-height: 1;
-    margin-bottom: 10px;
-}
-
-.box-404 h1 {
-    color: var(--verde-brasil);
-    font-size: 2rem;
-    margin-bottom: 12px;
-}
-
-.box-404 p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 24px;
-}
-
-.botoes-404 {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
-}
-
-.atalhos-404 {
-    text-align: left;
-    background: var(--cinza-fundo);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid var(--amarelo-brasil);
-}
-
-.atalhos-404 h3 {
-    color: var(--azul-brasil);
-    font-size: 1.05rem;
-    margin-bottom: 10px;
-}
-
-.atalhos-404 ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.atalhos-404 li {
-    margin-bottom: 8px;
-}
-
-.atalhos-404 a {
-    color: var(--verde-brasil);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.atalhos-404 a:hover {
-    text-decoration: underline;
-}
-
-/* --- RODAPÉ --- */
 .site-footer {
     background-color: var(--azul-brasil);
     color: var(--branco);
@@ -637,11 +436,6 @@ body {
     font-size: 0.9rem;
 }
 
-.site-footer p {
-    opacity: 0.9;
-}
-
-/* --- ACESSIBILIDADE E LEITORES DE TELA --- */
 .screen-reader-text {
     position: absolute;
     width: 1px;
@@ -653,18 +447,7 @@ body {
     border: 0;
 }
 
-.screen-reader-text:focus {
-    position: static;
-    width: auto;
-    height: auto;
-    padding: 10px;
-    background: var(--amarelo-brasil);
-    color: var(--azul-brasil);
-    font-weight: bold;
-    z-index: 10000;
-}
-
-/* --- MODO ALTO CONTRASTE --- */
+/* ALTO CONTRASTE */
 body.alto-contraste {
     background-color: #000000 !important;
     color: #ffffff !important;
@@ -677,12 +460,13 @@ body.alto-contraste .top-accessibility-bar {
     border-bottom: 2px solid #ffff00 !important;
 }
 
+body.alto-contraste .nav-menu {
+    background-color: #121212 !important;
+}
+
 body.alto-contraste .atalho-card,
 body.alto-contraste .curso-card,
-body.alto-contraste .noticia-card,
-body.alto-contraste .curso-main-content,
-body.alto-contraste .widget-curso,
-body.alto-contraste .box-404 {
+body.alto-contraste .noticia-card {
     background-color: #121212 !important;
     color: #ffffff !important;
     border: 1px solid #ffff00 !important;
@@ -693,9 +477,4 @@ body.alto-contraste h1,
 body.alto-contraste h2,
 body.alto-contraste h3 {
     color: #ffff00 !important;
-}
-
-body.alto-contraste .btn {
-    background-color: #ffff00 !important;
-    color: #000000 !important;
 }

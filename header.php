@@ -31,12 +31,17 @@ if (!defined('ABSPATH')) exit;
         <div class="site-branding">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link">
                 <img src="<?php echo esc_url(get_template_directory_uri() . '/logo.svg'); ?>" alt="EEEP Professor Antonio Valmir da Silva" class="site-logo">
-                <span class="site-title-text">EEEP – Professor Antonio Valmir da Silva</span>
+                <span class="site-title-text">EEEP Prof. Antonio Valmir</span>
             </a>
         </div>
 
         <nav class="main-navigation" aria-label="Menu Principal">
-            <ul class="nav-menu">
+            <button class="menu-toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Abrir Menu de Navegação">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <ul id="primary-menu" class="nav-menu">
                 <li><a href="<?php echo esc_url(home_url('/')); ?>">Início</a></li>
                 <li><a href="<?php echo esc_url(home_url('/#cursos')); ?>">Cursos</a></li>
                 <li><a href="<?php echo esc_url(get_template_directory_uri() . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener">Edital 2026 📑</a></li>
