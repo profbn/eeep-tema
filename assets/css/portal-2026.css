@@ -529,3 +529,27 @@ body.alto-contraste .post-category-tags a {
     background: #ff0 !important;
     color: #000 !important;
 }
+
+/* Cabeçalhos de listagem por categoria e categorias filhas. */
+.category-lead {
+    background: #fff;
+    border: 1px solid var(--eeep-line);
+    border-radius: 16px;
+    box-shadow: var(--eeep-soft-shadow);
+    padding: clamp(22px, 3vw, 34px);
+    margin-bottom: 24px;
+}
+.category-lead .hero-badge {
+    background: #d8f6e6;
+    color: #075535;
+    border-radius: 100px;
+    font-weight: 780;
+    padding: 6px 12px;
+}
+.category-lead .page-title { margin: 13px 0 8px; }
+.category-description { color: #526d69; font-size: 1.05rem; line-height: 1.7; }
+.category-description p { margin: 0; }
+.category .noticia-card h2 { margin: 0 0 11px; }
+.portal-widget .cat-item-none { color: #526d69; padding: 9px 0; }
+body.alto-contraste .category-lead { background: #090909 !important; border-color: #ff0 !important; }
+body.alto-contraste .category-description { color: #fff !important; }
