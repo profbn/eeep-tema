@@ -35,46 +35,46 @@ get_header();
     <div class="container">
         <h2 style="color: var(--verde-brasil); margin-bottom: 20px;">Nossos Cursos Técnicos</h2>
         <div class="cursos-grid">
-            <a href="<?php echo esc_url(home_url('/curso/administracao')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Gestão</span>
-                    <h3>Técnico em Administração</h3>
-                    <p>Gestão empresarial, recursos humanos, finanças e logística organizacional.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/edificacoes')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Construção Civil</span>
-                    <h3>Técnico em Edificações</h3>
-                    <p>Desenho técnico, projetos arquitetônicos, medições e acompanhamento de obras.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/eletromecanica')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Indústria</span>
-                    <h3>Técnico em Eletromecânica</h3>
-                    <p>Manutenção industrial, automação, circuitos elétricos e sistemas mecânicos.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/logistica')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Logística</span>
-                    <h3>Técnico em Logística</h3>
-                    <p>Gestão de estoque, cadeia de suprimentos, transporte e distribuição.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/informatica')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Tecnologia</span>
-                    <h3>Técnico em Informática</h3>
-                    <p>Desenvolvimento de software, redes de computadores, banco de dados e sistemas.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
+            <?php
+            $cursos_query = new WP_Query(array(
+                'post_type' => 'curso',
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
+                'orderby' => 'title',
+                'order' => 'ASC',
+                'no_found_rows' => true,
+            ));
+            $areas = array(
+                'administracao' => 'Gestão',
+                'edificacoes' => 'Construção Civil',
+                'eletromecanica' => 'Indústria',
+                'logistica' => 'Logística',
+                'informatica' => 'Tecnologia',
+            );
+            if ($cursos_query->have_posts()) :
+                while ($cursos_query->have_posts()) : $cursos_query->the_post();
+                    $resumo = get_the_excerpt();
+                    if (!$resumo) {
+                        $resumo = wp_trim_words(wp_strip_all_tags(get_the_content()), 22);
+                    }
+                    $area = isset($areas[get_post_field('post_name', get_the_ID())])
+                        ? $areas[get_post_field('post_name', get_the_ID())] : 'Curso Técnico';
+                    ?>
+                    <a href="<?php echo esc_url(get_permalink()); ?>" class="curso-card-link">
+                        <article class="curso-card">
+                            <span class="curso-tag"><?php echo esc_html($area); ?></span>
+                            <h3><?php echo esc_html(get_the_title()); ?></h3>
+                            <p><?php echo esc_html($resumo); ?></p>
+                            <span class="curso-saiba-mais">Ver detalhes do curso →</span>
+                        </article>
+                    </a>
+                    <?php
+                endwhile;
+                wp_reset_postdata();
+            else :
+                ?>
+                <p>Os cursos técnicos serão publicados em breve.</p>
+            <?php endif; ?>
         </div>
     </div>
 </section>
