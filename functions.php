@@ -37,7 +37,10 @@ function eeep_configuracoes_tema() {
     add_theme_support('automatic-feed-links');
     add_theme_support('responsive-embeds');
     add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script'));
-    register_nav_menus(array('primary' => 'Menu principal (cabeçalho)'));
+    register_nav_menus(array(
+        'primary' => 'Menu principal (cabeçalho)',
+        'categories' => 'Categorias e subcategorias (opcional)',
+    ));
 }
 add_action('after_setup_theme', 'eeep_configuracoes_tema');
 
@@ -90,24 +93,37 @@ function eeep_obter_imagem_post($post_id) {
  */
 function eeep_html_categorias_menu() {
     $padrao = (int) get_option('default_category');
-    $categorias = get_categories(array('hide_empty' => false, 'exclude' => array($padrao)));
-    if (is_wp_error($categorias) || empty($categorias)) {
+    if (has_nav_menu('categories')) {
+        // Menu opcional: o administrador controla a ordem e as subcategorias.
+        $itens = wp_nav_menu(array(
+            'theme_location' => 'categories',
+            'container' => false,
+            'echo' => false,
+            'items_wrap' => '%3$s',
+            'depth' => 4,
+        ));
+    } else {
+        // Sem menu opcional, lista automaticamente as categorias do WordPress.
+        $categorias = get_categories(array('hide_empty' => false, 'exclude' => array($padrao)));
+        if (is_wp_error($categorias) || empty($categorias)) {
+            return '';
+        }
+        $itens = wp_list_categories(array(
+            'taxonomy' => 'category',
+            'hide_empty' => false,
+            'hierarchical' => true,
+            'depth' => 0,
+            'exclude' => array($padrao),
+            'title_li' => '',
+            'echo' => false,
+            'orderby' => 'name',
+        ));
+        $itens = str_replace('class="children"', 'class="sub-menu"', $itens);
+    }
+
+    if (!is_string($itens) || trim($itens) === '') {
         return '';
     }
-    $itens = wp_list_categories(array(
-        'taxonomy' => 'category',
-        'hide_empty' => false,
-        'hierarchical' => true,
-        'depth' => 0,
-        'exclude' => array($padrao),
-        'title_li' => '',
-        'echo' => false,
-        'orderby' => 'name',
-    ));
-    if (!is_string($itens) || trim($itens) === '' || strpos($itens, 'cat-item') === false) {
-        return '';
-    }
-    $itens = str_replace('class="children"', 'class="sub-menu"', $itens);
     $pagina_blog = (int) get_option('page_for_posts');
     $url = $pagina_blog ? get_permalink($pagina_blog) : home_url('/');
     return '<li class="menu-item menu-item-has-children eeep-categories-menu">' .
