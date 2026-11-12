@@ -90,6 +90,10 @@ function eeep_obter_imagem_post($post_id) {
  */
 function eeep_html_categorias_menu() {
     $padrao = (int) get_option('default_category');
+    $categorias = get_categories(array('hide_empty' => false, 'exclude' => array($padrao)));
+    if (is_wp_error($categorias) || empty($categorias)) {
+        return '';
+    }
     $itens = wp_list_categories(array(
         'taxonomy' => 'category',
         'hide_empty' => false,
