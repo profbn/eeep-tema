@@ -1,19 +1,59 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-// Carregar CSS e Scripts no WordPress
+// Recursos do tema: sem CSS duplicado e sem cache desativado a cada acesso.
 function eeep_carregar_recursos() {
-    wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), time());
+    $versao = wp_get_theme()->get('Version');
+    wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), $versao);
+    wp_enqueue_script(
+        'eeep-acessibilidade',
+        get_template_directory_uri() . '/acessibilidade.js',
+        array(),
+        $versao,
+        true
+    );
+
+    // O componente de Libras é opcional e não deve interromper o menu se estiver indisponível.
+    wp_enqueue_script('eeep-vlibras', 'https://vlibras.gov.br/app/vlibras-plugin.js', array(), null, true);
+    wp_add_inline_script(
+        'eeep-vlibras',
+        "if (window.VLibras && window.VLibras.Widget) { new window.VLibras.Widget('https://vlibras.gov.br/app'); }"
+    );
 }
 add_action('wp_enqueue_scripts', 'eeep_carregar_recursos');
 
-// Suportes do Tema
+// Permitir administrar o menu e o logo diretamente pelo WordPress.
 function eeep_configuracoes_tema() {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
-    add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption'));
+    add_theme_support('custom-logo', array(
+        'height' => 80,
+        'width' => 280,
+        'flex-width' => true,
+        'flex-height' => true,
+    ));
+    add_theme_support('automatic-feed-links');
+    add_theme_support('responsive-embeds');
+    add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script'));
+    register_nav_menus(array('primary' => 'Menu principal (cabeçalho)'));
 }
 add_action('after_setup_theme', 'eeep_configuracoes_tema');
+
+// Links úteis até que um administrador configure Aparência > Menus.
+// Ao atribuir um menu à localização "Menu principal", o WordPress o substitui.
+function eeep_menu_padrao($args = array()) {
+    $base = home_url('/');
+    $tema = get_template_directory_uri();
+    ?>
+    <ul id="primary-menu" class="nav-menu">
+        <li><a href="<?php echo esc_url($base); ?>">Início</a></li>
+        <li><a href="<?php echo esc_url($base . '#cursos'); ?>">Cursos</a></li>
+        <li><a href="<?php echo esc_url($tema . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener noreferrer">Edital 2026</a></li>
+        <li><a href="<?php echo esc_url($tema . '/pdf/resultado-2025.pdf'); ?>" target="_blank" rel="noopener noreferrer">Resultado 2025</a></li>
+        <li><a class="nav-btn-yt" href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+    </ul>
+    <?php
+}
 
 // Registrar Custom Post Type: Cursos Técnicos
 function eeep_registrar_cpt_curso() {
