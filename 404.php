@@ -18,11 +18,18 @@ get_header();
             <div class="atalhos-404">
                 <h3>Acesso Rápido aos Cursos da EEEP:</h3>
                 <ul>
-                    <li><a href="<?php echo esc_url(home_url('/curso/administracao')); ?>">Técnico em Administração</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/curso/edificacoes')); ?>">Técnico em Edificações</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/curso/eletromecanica')); ?>">Técnico em Eletromecânica</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/curso/logistica')); ?>">Técnico em Logística</a></li>
-                    <li><a href="<?php echo esc_url(home_url('/curso/informatica')); ?>">Técnico em Informática</a></li>
+                    <?php
+                    $cursos = get_posts(array(
+                        'post_type' => 'curso',
+                        'numberposts' => -1,
+                        'post_status' => 'publish',
+                        'orderby' => 'title',
+                        'order' => 'ASC',
+                    ));
+                    foreach ($cursos as $curso) :
+                    ?>
+                        <li><a href="<?php echo esc_url(get_permalink($curso)); ?>"><?php echo esc_html(get_the_title($curso)); ?></a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
