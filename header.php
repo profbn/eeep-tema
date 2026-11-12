@@ -5,8 +5,7 @@ if (!defined('ABSPATH')) exit;
 <html <?php language_attributes(); ?>>
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo esc_url(get_stylesheet_uri()); ?>?v=<?php echo time(); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -17,11 +16,11 @@ if (!defined('ABSPATH')) exit;
 <div class="top-accessibility-bar">
     <div class="container accessibility-flex">
         <span class="accessibility-title">Acessibilidade:</span>
-        <div class="accessibility-buttons">
-            <button type="button" onclick="alterarFonte(1)" aria-label="Aumentar fonte">A+</button>
-            <button type="button" onclick="alterarFonte(-1)" aria-label="Diminuir fonte">A-</button>
-            <button type="button" onclick="resetarFonte()" aria-label="Restaurar tamanho da fonte">A</button>
-            <button type="button" onclick="alternarAltoContraste()" aria-label="Alternar Alto Contraste">🌓 Alto Contraste</button>
+        <div class="accessibility-buttons" role="group" aria-label="Preferências de leitura">
+            <button type="button" id="btn-aumentar-fonte" aria-label="Aumentar fonte">A+</button>
+            <button type="button" id="btn-diminuir-fonte" aria-label="Diminuir fonte">A-</button>
+            <button type="button" id="btn-reset-fonte" aria-label="Restaurar tamanho da fonte">A</button>
+            <button type="button" id="btn-alto-contraste" aria-label="Ativar alto contraste" aria-pressed="false">🌓 Alto contraste</button>
         </div>
     </div>
 </div>
@@ -29,26 +28,37 @@ if (!defined('ABSPATH')) exit;
 <header class="site-header">
     <div class="container header-flex">
         <div class="site-branding">
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/logo.svg'); ?>" alt="EEEP Professor Antonio Valmir da Silva" class="site-logo">
-                <span class="site-title-text">EEEP Prof. Antonio Valmir</span>
+            <?php if (has_custom_logo()) : ?>
+                <?php the_custom_logo(); ?>
+            <?php else : ?>
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link" rel="home">
+                    <img src="<?php echo esc_url(get_template_directory_uri() . '/logo.svg'); ?>" alt="" class="site-logo">
+                </a>
+            <?php endif; ?>
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="site-title-text" rel="home">
+                <?php echo esc_html(get_bloginfo('name')); ?>
             </a>
         </div>
 
-        <nav class="main-navigation" aria-label="Menu Principal">
-            <button class="menu-toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Abrir Menu de Navegação">
+        <nav class="main-navigation" aria-label="Menu principal">
+            <button class="menu-toggle" type="button" aria-expanded="false"
+                    aria-controls="primary-menu" aria-label="Abrir menu de navegação">
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
             </button>
-            <ul id="primary-menu" class="nav-menu">
-                <li><a href="<?php echo esc_url(home_url('/')); ?>">Início</a></li>
-                <li><a href="<?php echo esc_url(home_url('/#cursos')); ?>">Cursos</a></li>
-                <li><a href="<?php echo esc_url(get_template_directory_uri() . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener">Edital 2026 📑</a></li>
-                <li><a href="<?php echo esc_url(get_template_directory_uri() . '/pdf/resultado-2025.pdf'); ?>" target="_blank" rel="noopener">Resultado 2025 📊</a></li>
-                <li><a href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener" class="nav-btn-yt">YouTube 📺</a></li>
-            </ul>
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary',
+                'container' => false,
+                'menu_class' => 'nav-menu',
+                'menu_id' => 'primary-menu',
+                'depth' => 3,
+                'fallback_cb' => 'eeep_menu_padrao',
+            ));
+            ?>
         </nav>
     </div>
 </header>
-<main id="primary-content">
+
+<main id="primary-content" tabindex="-1">
