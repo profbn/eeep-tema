@@ -2,7 +2,7 @@
 
 Tema clássico para WordPress, com cursos técnicos, notícias, navegação responsiva e recursos básicos de acessibilidade.
 
-## Versão 1.2.0 — correções do cabeçalho e conteúdos
+## Base da versão 1.2.0 — correções do cabeçalho e conteúdos
 
 - Menu principal **dinâmico**, gerenciado no WordPress por uma localização de menu.
 - Submenus com suporte a teclado, mouse e botão de expansão no celular.
@@ -12,6 +12,36 @@ Tema clássico para WordPress, com cursos técnicos, notícias, navegação resp
 - Cursos na página inicial, nas páginas de detalhes, no arquivo e na página 404 vêm dos posts do tipo **Curso**, sem links duplicados escritos no template.
 - Layout de páginas internas, páginas comuns e arquivo de notícias aprimorado.
 - Os arquivos de edital e resultado continuam no diretório `pdf/` como exemplos. **Substitua documentos antigos e confirme a validade das informações antes de publicar.**
+
+
+## Novidade — Portal EEEP 2026 (tema 2.0)
+
+- Layout editorial de largura ampla: conteúdo dos artigos ocupa a área útil da tela com barra lateral de assuntos, subcategorias e notícias recentes, eliminando as margens laterais excessivas.
+- Carrossel de até cinco **posts recentes** imediatamente abaixo do menu, em todas as páginas. Usa imagem destacada do post; quando ela não existe, tenta uma imagem do conteúdo ou a miniatura de vídeo do YouTube. Se não houver imagem, usa fundo gráfico.
+- Transições suaves a cada 8,5 segundos, setas, pontos, controle de pausa, gesto lateral no celular e teclado. Pausa ao passar o mouse, ao usar o teclado, quando a aba está oculta e para usuários que preferem movimento reduzido.
+- Categorias e subcategorias hierárquicas no menu principal com item **Categorias**, criado automaticamente a partir do cadastro do WordPress. Não é necessário alterar o código para incluir novos assuntos.
+- Página própria de categorias com listagem de posts, imagem, descrição e links para subcategorias.
+- Publicações e arquivos em grade responsiva, com imagens ou miniaturas de vídeo.
+- Paleta institucional verde com tons neutros, fontes legíveis, foco acessível e maior aproveitamento do espaço.
+
+### Como criar as categorias e subcategorias
+
+1. No painel WordPress acesse **Posts → Categorias**.
+2. Cadastre uma categoria, por exemplo **Tecnologia**.
+3. Cadastre **Redes de Computadores**; em **Categoria ascendente / Categoria mãe**, escolha **Tecnologia**.
+4. Cadastre **IPv6**; em **Categoria ascendente**, escolha **Redes de Computadores**.
+5. Abra **Posts → Adicionar novo** (ou edite uma publicação). Na barra lateral de configurações do post, marque a categoria desejada.
+6. Se **Categorias** não aparecer no editor de blocos, confira **Preferências → Painéis** no menu de três pontos e ative o painel **Categorias**. No editor clássico, confira **Opções de tela**.
+7. O item **Categorias** surgirá automaticamente no cabeçalho quando houver pelo menos uma categoria diferente da categoria padrão **Sem categoria**. Subcategorias são exibidas como submenus.
+
+**Atenção:** Posts normais do WordPress têm categorias nativas. O tipo de conteúdo **Cursos Técnicos** é separado e não usa essas categorias para não misturar cursos com matérias escolares.
+
+### Boas práticas para o carrossel
+
+- Adicione **Imagem destacada** em cada post para melhor definição de imagem.
+- Recomendação: fotografias em proporção **16:9** (por exemplo 1600 × 900 pixels).
+- Escreva títulos curtos e resumos objetivos: eles aparecerão no slide.
+- O carrossel usa os posts publicados mais recentes, sem editar um conjunto fixo de links.
 
 ## Instalação / atualização com segurança
 
