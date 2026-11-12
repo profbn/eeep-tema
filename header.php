@@ -61,4 +61,6 @@ if (!defined('ABSPATH')) exit;
     </div>
 </header>
 
+<?php get_template_part('template-parts/carrossel-destaques'); ?>
+
 <main id="primary-content" tabindex="-1">
