@@ -5,6 +5,8 @@ if (!defined('ABSPATH')) exit;
 function eeep_carregar_recursos() {
     $versao = wp_get_theme()->get('Version');
     wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), $versao);
+    wp_enqueue_style('eeep-portal-2026', get_template_directory_uri() . '/assets/css/portal-2026.css', array('eeep-style'), $versao);
+    wp_enqueue_script('eeep-portal-slider', get_template_directory_uri() . '/assets/js/portal-slider.js', array(), $versao, true);
     wp_enqueue_script(
         'eeep-acessibilidade',
         get_template_directory_uri() . '/acessibilidade.js',
@@ -51,9 +53,77 @@ function eeep_menu_padrao($args = array()) {
         <li><a href="<?php echo esc_url($tema . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener noreferrer">Edital 2026</a></li>
         <li><a href="<?php echo esc_url($tema . '/pdf/resultado-2025.pdf'); ?>" target="_blank" rel="noopener noreferrer">Resultado 2025</a></li>
         <li><a class="nav-btn-yt" href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <?php echo eeep_html_categorias_menu(); ?>
     </ul>
     <?php
 }
+
+/**
+ * Obter a primeira imagem da publicação para o destaque.
+ * A imagem destacada tem precedência no modelo.
+ */
+function eeep_obter_imagem_post($post_id) {
+    $conteudo = (string) get_post_field('post_content', (int) $post_id);
+    if (preg_match('/wp-image-([0-9]+)/i', $conteudo, $match)) {
+        $imagem = wp_get_attachment_image_url((int) $match[1], 'large');
+        if ($imagem) return $imagem;
+    }
+    if (preg_match('/"id"\s*:\s*([0-9]+)/', $conteudo, $match) && strpos($conteudo, 'wp:image') !== false) {
+        $imagem = wp_get_attachment_image_url((int) $match[1], 'large');
+        if ($imagem) return $imagem;
+    }
+    // URL direta, iframe embed ou link simples para YouTube.
+    $yt_pattern = '~(?:youtube\.com/(?:watch\?(?:[^"\s<>]*&)?v=|embed/|shorts/|live/)|youtu\.be/)([a-zA-Z0-9_-]{11})~';
+    if (preg_match($yt_pattern, html_entity_decode($conteudo, ENT_QUOTES, 'UTF-8'), $match)) {
+        return 'https://i.ytimg.com/vi/' . $match[1] . '/hqdefault.jpg';
+    }
+    if (preg_match('~<img[^>]+src=["\'](https?://[^"\']+)["\']~i', $conteudo, $match)) {
+        return esc_url_raw(html_entity_decode($match[1], ENT_QUOTES, 'UTF-8'));
+    }
+    return '';
+}
+
+/**
+ * Menu automático de categorias e subcategorias. Não depende do menu salvo.
+ * Apenas categorias criadas pelo administrador são exibidas (exceto a
+ * categoria padrão "Sem categoria").
+ */
+function eeep_html_categorias_menu() {
+    $padrao = (int) get_option('default_category');
+    $itens = wp_list_categories(array(
+        'taxonomy' => 'category',
+        'hide_empty' => false,
+        'hierarchical' => true,
+        'depth' => 0,
+        'exclude' => array($padrao),
+        'title_li' => '',
+        'echo' => false,
+        'orderby' => 'name',
+    ));
+    if (!is_string($itens) || trim($itens) === '' || strpos($itens, 'cat-item') === false) {
+        return '';
+    }
+    $itens = str_replace('class="children"', 'class="sub-menu"', $itens);
+    $pagina_blog = (int) get_option('page_for_posts');
+    $url = $pagina_blog ? get_permalink($pagina_blog) : home_url('/');
+    return '<li class="menu-item menu-item-has-children eeep-categories-menu">' .
+        '<a href="' . esc_url($url) . '">Categorias</a>' .
+        '<ul class="sub-menu">' . $itens . '</ul></li>';
+}
+
+function eeep_adicionar_categorias_menu($items, $args) {
+    if (isset($args->theme_location) && $args->theme_location === 'primary') {
+        $items .= eeep_html_categorias_menu();
+    }
+    return $items;
+}
+add_filter('wp_nav_menu_items', 'eeep_adicionar_categorias_menu', 10, 2);
+
+// O WordPress já registra "category" para Posts. Reafirmar a associação
+// torna explícito que artigos continuam categorizáveis com o tema ativo.
+add_action('init', function () {
+    register_taxonomy_for_object_type('category', 'post');
+}, 20);
 
 // Registrar Custom Post Type: Cursos Técnicos
 function eeep_registrar_cpt_curso() {
