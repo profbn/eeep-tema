@@ -11,12 +11,12 @@ Tema clássico para WordPress, com cursos técnicos, notícias, navegação resp
 - JavaScript enfileirado pelo WordPress; CSS deixa de ser carregado duas vezes.
 - Cursos na página inicial, nas páginas de detalhes, no arquivo e na página 404 vêm dos posts do tipo **Curso**, sem links duplicados escritos no template.
 - Layout de páginas internas, páginas comuns e arquivo de notícias aprimorado.
-- Os arquivos de edital e resultado continuam no diretório \`pdf/\` como exemplos. **Substitua documentos antigos e confirme a validade das informações antes de publicar.**
+- Os arquivos de edital e resultado continuam no diretório `pdf/` como exemplos. **Substitua documentos antigos e confirme a validade das informações antes de publicar.**
 
 ## Instalação / atualização com segurança
 
-1. Faça backup dos arquivos do tema em \`wp-content/themes/\` e do banco de dados.
-2. Baixe a versão corrigida da branch \`correcao-menu-header-dinamico\` no GitHub ou mescle o pull request após a revisão.
+1. Faça backup dos arquivos do tema em `wp-content/themes/` e do banco de dados.
+2. Baixe a versão corrigida da branch `correcao-menu-header-dinamico` no GitHub ou mescle o pull request após a revisão.
 3. Faça a instalação em ambiente de teste antes de substituir a versão em produção.
 4. Se ativou uma cópia do tema com nome de pasta diferente, os menus e algumas preferências do tema precisam ser reatribuídos.
 5. No painel WordPress, acesse **Aparência → Menus**. Crie ou selecione o menu, adicione links/páginas e marque **Menu principal (cabeçalho)** na localização de exibição. Salve.
@@ -35,18 +35,18 @@ O tema ainda apresenta os links padrão de Início, Cursos, Edital, Resultado e 
 
 ## Arquivos principais
 
-- \`header.php\`: cabeçalho, logo e menu dinâmico.
-- \`functions.php\`: suporte ao tema, recursos e registro dos cursos.
-- \`acessibilidade.js\`: menu móvel, submenus, zoom e alto contraste.
-- \`front-page.php\`: página inicial e consulta dos cursos.
-- \`single-curso.php\`, \`archive-curso.php\`: detalhes e lista de cursos.
-- \`page.php\`, \`index.php\`, \`404.php\`: páginas e listagens.
-- \`style.css\`: identidade visual, navegação e conteúdos internos.
+- `header.php`: cabeçalho, logo e menu dinâmico.
+- `functions.php`: suporte ao tema, recursos e registro dos cursos.
+- `acessibilidade.js`: menu móvel, submenus, zoom e alto contraste.
+- `front-page.php`: página inicial e consulta dos cursos.
+- `single-curso.php`, `archive-curso.php`: detalhes e lista de cursos.
+- `page.php`, `index.php`, `404.php`: páginas e listagens.
+- `style.css`: identidade visual, navegação e conteúdos internos.
 
 ## Limites de validação
 
 A revisão foi realizada sobre os arquivos do repositório. É necessário conferir o funcionamento em uma instalação real do WordPress, inclusive com os plugins, menus e dados da escola. Recursos de acessibilidade ajudam a navegação, mas **não equivalem, isoladamente, a uma certificação WCAG/eMAG**.
 
-## Observação sobre o arquivo \`cd\`
+## Observação sobre o arquivo `cd`
 
-O repositório contém um arquivo chamado \`cd\` com código de um plugin de manutenção de rede. Ele **não é carregado automaticamente como parte do tema**. Avalie sua separação em um plugin próprio, depois de revisar o uso desse recurso no Multisite.
+O repositório contém um arquivo chamado `cd` com código de um plugin de manutenção de rede. Ele **não é carregado automaticamente como parte do tema**. Avalie sua separação em um plugin próprio, depois de revisar o uso desse recurso no Multisite.
