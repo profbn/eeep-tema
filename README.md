@@ -34,6 +34,10 @@ Tema clássico para WordPress, com cursos técnicos, notícias, navegação resp
 6. Se **Categorias** não aparecer no editor de blocos, confira **Preferências → Painéis** no menu de três pontos e ative o painel **Categorias**. No editor clássico, confira **Opções de tela**.
 7. O item **Categorias** surgirá automaticamente no cabeçalho quando houver pelo menos uma categoria diferente da categoria padrão **Sem categoria**. Subcategorias são exibidas como submenus.
 
+### Ajustar a ordem do menu de categorias (opcional)
+
+Em **Aparência → Menus**, crie um menu chamado **Assuntos do Portal**. Na caixa **Categorias**, selecione as categorias desejadas, adicione ao menu e arraste subcategorias ligeiramente para a direita sob a categoria mãe. Atribua-o à localização **Categorias e subcategorias (opcional)** e salve. Se a caixa **Categorias** não aparecer na tela de Menus, habilite-a em **Opções de tela**. Quando esse menu opcional estiver atribuído, ele substitui a lista automática mantendo o item **Categorias** no cabeçalho.
+
 **Atenção:** Posts normais do WordPress têm categorias nativas. O tipo de conteúdo **Cursos Técnicos** é separado e não usa essas categorias para não misturar cursos com matérias escolares.
 
 ### Boas práticas para o carrossel
