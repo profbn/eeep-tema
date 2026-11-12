@@ -770,3 +770,7 @@ body.alto-contraste :focus-visible { outline-color: #ff0 !important; }
     font-weight: 700;
 }
 .navigation.pagination .page-numbers.current { background: var(--azul-brasil); color: #fff; }
+
+.post-main-content { max-width: 850px; margin: 0 auto; }
+.post-imagem-destaque { margin-bottom: 24px; }
+.post-image { display: block; max-width: 100%; width: 100%; height: auto; border-radius: 8px; }
