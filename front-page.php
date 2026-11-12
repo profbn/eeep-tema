@@ -6,7 +6,7 @@ get_header();
 <section class="home-hero">
     <div class="container hero-content">
         <span class="hero-badge">Ensino Médio Integrado à Educação Profissional</span>
-        <h1>EEEP Professor Antonio Valmir da Silva</h1>
+        <h1><?php echo esc_html(get_bloginfo('name')); ?></h1>
         <p>Ensino de excelência, formação técnica profissional e preparação para o mercado de trabalho e universidade.</p>
         <a href="#cursos" class="btn btn-primary">Conheça nossos Cursos</a>
     </div>
@@ -14,7 +14,7 @@ get_header();
 
 <section class="home-atalhos">
     <div class="container">
-        <div class="atalhos-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="atalhos-grid">
             <a href="<?php echo esc_url(get_template_directory_uri() . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener" class="atalho-card">
                 <h3>📑 Edital 2026</h3>
                 <p>Edital de Inscrição Valmir 2026 (PDF)</p>
@@ -33,7 +33,7 @@ get_header();
 
 <section id="cursos" class="home-cursos">
     <div class="container">
-        <h2 style="color: var(--verde-brasil); margin-bottom: 20px;">Nossos Cursos Técnicos</h2>
+        <h2>Nossos Cursos Técnicos</h2>
         <div class="cursos-grid">
             <?php
             $cursos_query = new WP_Query(array(
@@ -81,7 +81,7 @@ get_header();
 
 <section class="home-noticias">
     <div class="container">
-        <h2 style="color: var(--azul-brasil); margin-bottom: 24px;">Últimas Notícias e Avisos</h2>
+        <h2>Últimas Notícias e Avisos</h2>
         <div class="noticias-grid">
             <?php
             $noticias_query = new WP_Query(array(
@@ -94,9 +94,12 @@ get_header();
                 while ($noticias_query->have_posts()) : $noticias_query->the_post();
             ?>
                     <article class="noticia-card">
-                        <?php if (has_post_thumbnail()) : ?>
+                        <?php
+                        $imagem_noticia = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'medium_large') : eeep_obter_imagem_post(get_the_ID());
+                        if ($imagem_noticia) :
+                        ?>
                             <a href="<?php the_permalink(); ?>" class="noticia-img-link">
-                                <?php the_post_thumbnail('medium'); ?>
+                                <img loading="lazy" decoding="async" src="<?php echo esc_url($imagem_noticia); ?>" alt="">
                             </a>
                         <?php endif; ?>
                         <div class="noticia-body">
