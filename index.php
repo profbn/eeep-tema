@@ -9,8 +9,10 @@ get_header();
             <div class="noticias-grid">
                 <?php while (have_posts()) : the_post(); ?>
                     <article class="noticia-card">
-                        <?php if (has_post_thumbnail()) : ?>
-                            <a href="<?php the_permalink(); ?>" class="noticia-img-link"><?php the_post_thumbnail('medium'); ?></a>
+                        <?php
+                        $thumb = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'medium_large') : eeep_obter_imagem_post(get_the_ID());
+                        if ($thumb) : ?>
+                            <a href="<?php the_permalink(); ?>" class="noticia-img-link"><img src="<?php echo esc_url($thumb); ?>" alt="" loading="lazy" decoding="async"></a>
                         <?php endif; ?>
                         <div class="noticia-body">
                             <span class="noticia-data"><?php echo esc_html(get_the_date('d/m/Y')); ?></span>
