@@ -1,6 +1,6 @@
 /**
  * Carrossel de notícias: navegação manual, transição suave e pausa acessível.
- * Autoplay desativado para quem prefere menos movimento.
+ * Avança a cada 5 segundos. Pausa mediante botão ou preferência por menos movimento.
  */
 document.addEventListener('DOMContentLoaded', function () {
     'use strict';
@@ -17,15 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let index = 0;
         let timer = null;
         let manuallyPaused = false;
-        let pointerInside = false;
-        let focusInside = false;
-        let visible = true;
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const INTERVAL = 8500;
+        const INTERVAL = 5000;
 
         function isPaused() {
-            return manuallyPaused || pointerInside || focusInside || !visible ||
-                document.hidden || reduceMotion.matches;
+            return manuallyPaused || document.hidden || reduceMotion.matches;
         }
 
         function render(nextIndex, announce) {
@@ -94,15 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        slider.addEventListener('pointerenter', function () { pointerInside = true; schedule(); });
-        slider.addEventListener('pointerleave', function () { pointerInside = false; schedule(); });
-        slider.addEventListener('focusin', function () { focusInside = true; schedule(); });
-        slider.addEventListener('focusout', function (event) {
-            if (!event.relatedTarget || !slider.contains(event.relatedTarget)) {
-                focusInside = false;
-                schedule();
-            }
-        });
+        // Não pausar somente porque o mouse está sobre o slide.
+        // Para interromper a troca, o visitante utiliza o botão Pausar.
         slider.addEventListener('keydown', function (event) {
             if (event.target.closest('input, textarea, select')) return;
             if (event.key === 'ArrowLeft') { event.preventDefault(); navigate(index - 1); }
@@ -111,14 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         document.addEventListener('visibilitychange', schedule);
         if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', schedule);
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver(function (entries) {
-                visible = entries[0].isIntersecting;
-                schedule();
-            }, { threshold: 0.15 });
-            observer.observe(slider);
-        }
-
         // Toque lateral no celular: o gesto não interfere no scroll vertical.
         let startX = 0;
         let startY = 0;
