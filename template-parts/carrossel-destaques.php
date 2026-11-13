@@ -11,7 +11,7 @@ $destaques = new WP_Query(array(
     'post_status' => 'publish',
     'orderby' => 'date',
     'order' => 'DESC',
-    'ignore_sticky_posts' => false,
+    'ignore_sticky_posts' => true,
     'no_found_rows' => true,
 ));
 $quantidade = (int) $destaques->post_count;
@@ -23,7 +23,7 @@ $quantidade = (int) $destaques->post_count;
             Portal de notícias e informações
             <span class="eeep-featured__eyebrow-right">Educação profissional • Ceará</span>
         </div>
-        <div class="eeep-slider" data-eeep-slider data-slides="<?php echo esc_attr(max($quantidade, 1)); ?>" aria-roledescription="carrossel" aria-label="Publicações em destaque">
+        <div class="eeep-slider" data-eeep-slider data-interval="5000" data-slides="<?php echo esc_attr(max($quantidade, 1)); ?>" aria-roledescription="carrossel" aria-label="Publicações em destaque">
             <div class="eeep-slider__viewport" aria-live="off">
                 <?php if ($destaques->have_posts()) : ?>
                     <?php $i = 0; while ($destaques->have_posts()) : $destaques->the_post();
