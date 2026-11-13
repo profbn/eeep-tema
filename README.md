@@ -18,7 +18,7 @@ Tema clássico para WordPress, com cursos técnicos, notícias, navegação resp
 
 - Layout editorial de largura ampla: conteúdo dos artigos ocupa a área útil da tela com barra lateral de assuntos, subcategorias e notícias recentes, eliminando as margens laterais excessivas.
 - Carrossel de até cinco **posts recentes** imediatamente abaixo do menu, em todas as páginas. Usa imagem destacada do post; quando ela não existe, tenta uma imagem do conteúdo ou a miniatura de vídeo do YouTube. Se não houver imagem, usa fundo gráfico.
-- Transições suaves a cada 8,5 segundos, setas, pontos, controle de pausa, gesto lateral no celular e teclado. Pausa ao passar o mouse, ao usar o teclado, quando a aba está oculta e para usuários que preferem movimento reduzido.
+- Transições suaves a cada **5 segundos**, com setas, pontos, controle de pausa, gestos laterais e teclado. O carrossel **não pausa apenas porque o mouse está sobre ele**. Para respeitar acessibilidade, o botão de pausa continua disponível, a rotação é suspensa quando a aba está oculta e não se inicia automaticamente se o dispositivo solicita menos movimento.
 - Categorias e subcategorias hierárquicas no menu principal com item **Categorias**, criado automaticamente a partir do cadastro do WordPress. Não é necessário alterar o código para incluir novos assuntos.
 - Página própria de categorias com listagem de posts, imagem, descrição e links para subcategorias.
 - Publicações e arquivos em grade responsiva, com imagens ou miniaturas de vídeo.
@@ -39,6 +39,15 @@ Tema clássico para WordPress, com cursos técnicos, notícias, navegação resp
 Em **Aparência → Menus**, crie um menu chamado **Assuntos do Portal**. Na caixa **Categorias**, selecione as categorias desejadas, adicione ao menu e arraste subcategorias ligeiramente para a direita sob a categoria mãe. Atribua-o à localização **Categorias e subcategorias (opcional)** e salve. Se a caixa **Categorias** não aparecer na tela de Menus, habilite-a em **Opções de tela**. Quando esse menu opcional estiver atribuído, ele substitui a lista automática mantendo o item **Categorias** no cabeçalho.
 
 **Atenção:** Posts normais do WordPress têm categorias nativas. O tipo de conteúdo **Cursos Técnicos** é separado e não usa essas categorias para não misturar cursos com matérias escolares.
+
+### Diagnóstico se o carrossel não trocar os posts
+
+1. Confirme pelo menos **2 posts publicados**; para exibir cinco diferentes, são necessários pelo menos **5 posts publicados**.
+2. O carrossel consulta automaticamente **os cinco posts mais recentes**, em ordem de data. Não utiliza páginas ou o tipo personalizado **Cursos**.
+3. Confirme que instalou a **branch correcao-menu-header-dinamico (versão 2.0.1)**, e não o tema antigo da branch \`main\`.
+4. Atualize a página com **Ctrl + Shift + R** e limpe cache do site/CDN ou plugins de otimização, se houver.
+5. Se o dispositivo estiver configurado para **reduzir animações**, o carrossel respeita essa preferência e não avança automaticamente; as setas e os indicadores continuam disponíveis.
+6. O arquivo \`assets/js/portal-slider.js\` deve carregar sem erro (verifique a aba **Rede/Network** e o **Console** do navegador).
 
 ### Boas práticas para o carrossel
 
