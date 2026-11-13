@@ -6,7 +6,9 @@ function eeep_carregar_recursos() {
     $versao = wp_get_theme()->get('Version');
     wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), $versao);
     wp_enqueue_style('eeep-portal-2026', get_template_directory_uri() . '/assets/css/portal-2026.css', array('eeep-style'), $versao);
-    wp_enqueue_script('eeep-portal-slider', get_template_directory_uri() . '/assets/js/portal-slider.js', array(), $versao, true);
+    $slider_js = get_template_directory() . '/assets/js/portal-slider.js';
+    $slider_versao = file_exists($slider_js) ? (string) filemtime($slider_js) : $versao;
+    wp_enqueue_script('eeep-portal-slider', get_template_directory_uri() . '/assets/js/portal-slider.js', array(), $slider_versao, true);
     wp_enqueue_script(
         'eeep-acessibilidade',
         get_template_directory_uri() . '/acessibilidade.js',
