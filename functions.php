@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) exit;
 // Organização modular das melhorias institucionais de 2026.
 require_once get_template_directory() . '/inc/requisitos-site-2026.php';
 require_once get_template_directory() . '/inc/documentos-anuais.php';
+require_once get_template_directory() . '/inc/noticias-categorias.php';
 
 // Recursos do tema: sem CSS duplicado e sem cache desativado a cada acesso.
 function eeep_carregar_recursos() {
@@ -13,6 +14,7 @@ function eeep_carregar_recursos() {
     wp_enqueue_style('eeep-requisitos-2026', get_template_directory_uri() . '/assets/css/requisitos-2026.css', array('eeep-portal-2026'), $versao);
     wp_enqueue_style('eeep-documentos-anuais', get_template_directory_uri() . '/assets/css/documentos-anuais.css', array('eeep-requisitos-2026'), $versao);
     wp_enqueue_style('eeep-noticias-2026', get_template_directory_uri() . '/assets/css/noticias-2026.css', array('eeep-documentos-anuais'), $versao);
+    wp_enqueue_style('eeep-grade-noticias', get_template_directory_uri() . '/assets/css/grade-noticias.css', array('eeep-noticias-2026'), $versao);
     $slider_js = get_template_directory() . '/assets/js/portal-slider.js';
     $slider_versao = file_exists($slider_js) ? (string) filemtime($slider_js) : $versao;
     wp_enqueue_script('eeep-portal-slider', get_template_directory_uri() . '/assets/js/portal-slider.js', array(), $slider_versao, true);
