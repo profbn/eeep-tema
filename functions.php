@@ -9,6 +9,7 @@ function eeep_carregar_recursos() {
     $versao = wp_get_theme()->get('Version');
     wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), $versao);
     wp_enqueue_style('eeep-portal-2026', get_template_directory_uri() . '/assets/css/portal-2026.css', array('eeep-style'), $versao);
+    wp_enqueue_style('eeep-requisitos-2026', get_template_directory_uri() . '/assets/css/requisitos-2026.css', array('eeep-portal-2026'), $versao);
     $slider_js = get_template_directory() . '/assets/js/portal-slider.js';
     $slider_versao = file_exists($slider_js) ? (string) filemtime($slider_js) : $versao;
     wp_enqueue_script('eeep-portal-slider', get_template_directory_uri() . '/assets/js/portal-slider.js', array(), $slider_versao, true);
@@ -222,7 +223,7 @@ function eeep_autocriar_cursos() {
             wp_insert_post(array(
                 'post_title'   => $dados['post_title'],
                 'post_name'    => $slug,
-                'post_content' => $dados['post_content'],
+                'post_content' => '<p>Apresentação do curso em preparação. As informações oficiais serão disponibilizadas após conferência pela escola.</p>',
                 'post_excerpt' => $dados['post_excerpt'],
                 'post_status'  => 'publish',
                 'post_type'    => 'curso',
