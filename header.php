@@ -61,11 +61,4 @@ if (!defined('ABSPATH')) exit;
     </div>
 </header>
 
-<?php
-// Na página inicial, o destaque principal é dedicado aos cinco cursos.
-if (is_front_page()) {
-    get_template_part('template-parts/carrossel-cursos');
-}
-?>
-
 <main id="primary-content" tabindex="-1">
