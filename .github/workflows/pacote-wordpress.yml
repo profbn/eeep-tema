@@ -85,16 +85,16 @@ jobs:
           path: eeep-tema.zip
           retention-days: 30
 
-      - name: Publicar ZIP da versao 2.1.0 como pre-lancamento
+      - name: Publicar ZIP da versao 2.1.1 como pre-lancamento
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view v2.1.0 >/dev/null 2>&1; then
-            gh release upload v2.1.0 eeep-tema.zip --clobber
+          if gh release view v2.1.1 >/dev/null 2>&1; then
+            gh release upload v2.1.1 eeep-tema.zip --clobber
           else
-            gh release create v2.1.0 eeep-tema.zip \
+            gh release create v2.1.1 eeep-tema.zip \
               --target "$GITHUB_SHA" \
-              --title "EEEP Tema 2.1.0 - ZIP instalavel" \
+              --title "EEEP Tema 2.1.1 - ZIP instalavel" \
               --notes "Pacote para WordPress com raiz unica eeep-tema/. Testado com PHP e Node; instalar primeiro em ambiente de teste." \
               --prerelease
           fi
