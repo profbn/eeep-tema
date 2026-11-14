@@ -1,0 +1,225 @@
+/*
+ * Editais e Resultados anuais — EEEP Tema 2026.
+ * Interface adaptada para desktop e celular, com foco visível.
+ */
+.eeep-home-servicos {
+    position: relative;
+    margin: 0;
+    padding: 5px 0 42px;
+    background: #f2f7f5;
+}
+.eeep-home-servicos .atalhos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+}
+.eeep-home-servicos .atalho-card {
+    min-height: 194px;
+    border-radius: 17px;
+    border: 1px solid #dae9e0;
+    border-left: 5px solid #18a76c;
+    box-shadow: 0 8px 26px rgba(15,72,46,.055);
+    padding: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+}
+.eeep-home-servicos .atalho-card h3 {
+    font-size: clamp(1.08rem,1.3vw,1.28rem);
+    color: #075b41;
+    margin: 0;
+    line-height: 1.3;
+}
+.eeep-home-servicos .atalho-card p {
+    color: #52655c;
+    font-size: .96rem;
+    line-height: 1.45;
+    margin: 0;
+}
+.eeep-home-servicos .atalho-card p strong {
+    color: #225544;
+    font-weight: 800;
+}
+.eeep-home-servicos .eeep-atalho-icone {
+    width: 40px;
+    height: 40px;
+    background: #e4f6eb;
+    color: #086844;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    font-size: 1.38rem;
+}
+.eeep-home-servicos .eeep-atalho-acao {
+    display: inline-block;
+    margin-top: auto;
+    font-size: .9rem;
+    font-weight: 800;
+    color: #086a46;
+}
+.eeep-home-servicos .atalho-card:hover {
+    border-color: #2ab180;
+    transform: translateY(-3px);
+}
+.eeep-home-servicos .atalho-card:focus-visible {
+    outline: 3px solid #f6d662;
+    outline-offset: 2px;
+}
+.eeep-documentos-pagina {
+    padding: clamp(28px, 4vw, 57px) 0 85px;
+}
+.eeep-documentos-pagina .container { max-width: 1250px; }
+.eeep-documentos-cabecalho {
+    max-width: 1000px;
+    margin: 0 0 28px;
+}
+.eeep-documentos-cabecalho h1,
+.eeep-documento-inteiro h1 {
+    font-size: clamp(1.9rem, 3.5vw, 3rem);
+    letter-spacing: -.035em;
+    line-height: 1.16;
+    margin: 9px 0 15px;
+    color: #104b38;
+}
+.eeep-documentos-cabecalho p { color: #51665e; font-size: 1.1rem; }
+.eeep-documentos-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    border-radius: 14px;
+    padding: 16px 20px;
+    background: #fff;
+    border: 1px solid #d8e8de;
+    margin-bottom: 23px;
+}
+.eeep-documentos-filtros label { font-weight: 800; color: #225442; }
+.eeep-documentos-filtros select {
+    min-height: 44px;
+    min-width: 180px;
+    border: 1px solid #7f9f91;
+    border-radius: 9px;
+    background: #fff;
+    padding: 7px 11px;
+    color: #183f30;
+}
+.eeep-documentos-filtros button {
+    min-height: 44px;
+    border: none;
+    color: #fff;
+    background: #0a7049;
+    border-radius: 9px;
+    padding: 9px 17px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.eeep-documentos-filtros button:hover { background: #075c3d; }
+.eeep-documentos-filtros a { color: #086a47; font-weight: 750; }
+.eeep-documentos-lista { display: grid; grid-template-columns: 1fr; gap: 15px; }
+.eeep-documento-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    background: #fff;
+    border: 1px solid #d8e8de;
+    border-radius: 15px;
+    padding: clamp(21px,2.4vw,30px);
+    box-shadow: 0 7px 27px rgba(9, 52, 35, .045);
+}
+.eeep-documento-info { flex: 1; min-width: 0; }
+.eeep-documento-ano {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: #dff5e8;
+    color: #075c3c;
+    font-size: .93rem;
+    font-weight: 850;
+}
+.eeep-documento-info h2 { color: #104a38; font-size: clamp(1.18rem,2vw,1.55rem); line-height: 1.3; margin: 11px 0; }
+.eeep-documento-info h2 a { color: inherit; text-decoration: none; }
+.eeep-documento-info h2 a:hover { text-decoration: underline; }
+.eeep-documento-info p { color: #52685e; font-size: 1rem; line-height: 1.55; margin-bottom: 10px; }
+.eeep-documento-data { display: block; color: #667d72; font-size: .86rem; }
+.eeep-documento-acoes { flex-shrink: 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.eeep-documento-acoes a, .eeep-documento-download a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 16px;
+    border-radius: 9px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #086643;
+    border: 1px solid #b9dac9;
+}
+.eeep-documento-acoes .eeep-documento-pdf,
+.eeep-documento-download a { background: #087447; color: #fff; border-color: #087447; }
+.eeep-documento-acoes a:hover,
+.eeep-documento-download a:hover { filter: brightness(.92); }
+.eeep-documento-inteiro {
+    padding: clamp(22px,4vw,48px);
+    background: #fff;
+    border: 1px solid #d8e8de;
+    border-radius: 18px;
+    max-width: 1020px;
+    box-shadow: 0 8px 33px rgba(10,62,40,.05);
+}
+.eeep-documento-inteiro .entry-content {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    margin: 25px 0;
+}
+.eeep-documento-download { margin-top: 22px; }
+.eeep-documentos-paginacao { margin-top: 25px; }
+.eeep-documentos-paginacao .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.eeep-documentos-paginacao .page-numbers {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #bfd5c6;
+    padding: 8px 14px;
+    border-radius: 9px;
+    text-decoration: none;
+    background: #fff;
+    color: #086744;
+    font-weight: 780;
+}
+.eeep-documentos-paginacao .current { background: #087447; color: #fff; }
+@media(max-width:1150px) {
+    .eeep-home-servicos .atalhos-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:680px) {
+    .eeep-home-servicos .atalhos-grid { grid-template-columns: 1fr; }
+    .eeep-home-servicos .atalho-card { min-height: 140px; }
+    .eeep-documento-item { flex-direction: column; align-items: stretch; gap: 18px; }
+    .eeep-documento-acoes { justify-content: flex-start; }
+    .eeep-documentos-filtros label { flex-basis: 100%; }
+}
+body.alto-contraste .eeep-documento-item,
+body.alto-contraste .eeep-documento-inteiro,
+body.alto-contraste .eeep-documentos-filtros,
+body.alto-contraste .eeep-home-servicos .atalho-card {
+    background: #111!important;
+    border-color: #ff0!important;
+    color: #fff!important;
+}
+body.alto-contraste .eeep-home-servicos,
+body.alto-contraste .eeep-documentos-pagina { background: #000!important; }
+body.alto-contraste .eeep-documento-ano,
+body.alto-contraste .eeep-documentos-filtros button,
+body.alto-contraste .eeep-documento-acoes .eeep-documento-pdf {
+    background: #ff0!important; color: #000!important; border-color: #ff0!important;
+}
+body.alto-contraste .eeep-home-servicos .atalho-card p,
+body.alto-contraste .eeep-documento-info p,
+body.alto-contraste .eeep-documentos-cabecalho p { color: #fff!important; }
+@media (prefers-reduced-motion: reduce) {
+    .eeep-home-servicos .atalho-card { transition: none!important; }
+}

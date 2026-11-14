@@ -1,0 +1,25 @@
+name: Validar tema EEEP
+
+on:
+  push:
+    branches: [main, correcao-menu-header-dinamico]
+  pull_request:
+
+jobs:
+  sintaxe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+      - name: Preparar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: none
+      - name: Validar PHP
+        run: find . -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+      - name: Validar JavaScript
+        run: |
+          node --check acessibilidade.js
+          node --check assets/js/portal-slider.js
+          node --check assets/js/documentos-admin.js
