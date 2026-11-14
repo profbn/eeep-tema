@@ -10,6 +10,19 @@ get_header();
             <span class="curso-badge">Notícias • Artigos • Comunicados</span>
             <h1><?php the_title(); ?></h1>
             <p class="curso-excerpt">Publicado em <?php echo esc_html(get_the_date('d/m/Y')); ?></p>
+            <?php
+            $areas_relacionadas = get_the_terms(get_the_ID(), 'area_curso');
+            if ($areas_relacionadas && !is_wp_error($areas_relacionadas)) :
+            ?>
+                <div class="post-category-tags" aria-label="Cursos relacionados">
+                    <?php foreach ($areas_relacionadas as $area) :
+                        $link = get_term_link($area);
+                        if (is_wp_error($link)) continue;
+                    ?>
+                        <a href="<?php echo esc_url($link); ?>">Curso: <?php echo esc_html($area->name); ?></a>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
             <div class="post-category-tags" aria-label="Categorias desta publicação">
                 <?php
                 $categorias_post = get_the_category();
