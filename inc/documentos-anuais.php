@@ -46,7 +46,7 @@ function eeep_registrar_documentos_anuais() {
             'show_in_rest' => true,
             'show_in_menu' => true,
             'menu_icon' => $config['icon'],
-            'supports' => array('title', 'editor', 'excerpt', 'revisions'),
+            'supports' => array('title', 'editor', 'excerpt', 'revisions', 'custom-fields'),
         ));
         register_post_meta($tipo, 'eeep_documento_ano', array(
             'single' => true,
@@ -143,7 +143,8 @@ add_action('admin_enqueue_scripts', 'eeep_documentos_midia_admin');
 
 /** Os arquivos e o destaque inicial exibem o ano mais recente cadastrado. */
 function eeep_documento_mais_recente($tipo) {
-    if (!isset(eeep_documento_tipos()[$tipo])) return null;
+    $tipos = eeep_documento_tipos();
+    if (!isset($tipos[$tipo])) return null;
     $docs = get_posts(array(
         'post_type' => $tipo,
         'post_status' => 'publish',
