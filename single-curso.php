@@ -111,12 +111,15 @@ get_header();
                     <span class="eeep-section-eyebrow">Informações para candidatos</span>
                     <h2>Como saber mais sobre o ingresso</h2>
                     <p>As condições de inscrição, prazos e critérios de seleção são definidos pela instituição nos editais oficiais aplicáveis.</p>
-                    <?php if ($edital) : ?>
-                        <a class="btn btn-primary" href="<?php echo esc_url($edital); ?>" target="_blank" rel="noopener noreferrer">
-                            Consultar edital de inscrição ↗
+                    <p>
+                        <a class="btn btn-primary" href="<?php echo esc_url(get_post_type_archive_link('edital')); ?>">
+                            Consultar editais e inscrições ↗
                         </a>
-                    <?php else : ?>
-                        <p class="eeep-soft-note">O link do edital aplicável ainda não foi cadastrado para este curso.</p>
+                    </p>
+                    <?php if ($edital) : ?>
+                        <p><a href="<?php echo esc_url($edital); ?>" target="_blank" rel="noopener noreferrer">
+                            Abrir edital específico deste curso ↗
+                        </a></p>
                     <?php endif; ?>
                 </section>
             </div>
