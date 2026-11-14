@@ -100,6 +100,9 @@ get_template_part('template-parts/carrossel-cursos');
 <?php
 // Publicações recentes ficam em um carrossel separado, depois dos serviços.
 get_template_part('template-parts/carrossel-destaques');
+
+// Quatro notícias por categoria, escolhidas no painel Aparência → Personalizar.
+get_template_part('template-parts/grade-noticias-categorias');
 ?>
 
 <?php get_footer(); ?>
