@@ -31,8 +31,8 @@ if (!defined('ABSPATH')) exit;
             <?php if (has_custom_logo()) : ?>
                 <?php the_custom_logo(); ?>
             <?php else : ?>
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link" rel="home">
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/logo.svg'); ?>" alt="" class="site-logo">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-link eeep-brand-placeholder" rel="home" aria-label="Página inicial">
+                    <span aria-hidden="true">EEEP</span>
                 </a>
             <?php endif; ?>
             <a href="<?php echo esc_url(home_url('/')); ?>" class="site-title-text" rel="home">
@@ -61,6 +61,11 @@ if (!defined('ABSPATH')) exit;
     </div>
 </header>
 
-<?php get_template_part('template-parts/carrossel-destaques'); ?>
+<?php
+// Na página inicial, o destaque principal é dedicado aos cinco cursos.
+if (is_front_page()) {
+    get_template_part('template-parts/carrossel-cursos');
+}
+?>
 
 <main id="primary-content" tabindex="-1">
