@@ -11,6 +11,7 @@ function eeep_carregar_recursos() {
     wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), $versao);
     wp_enqueue_style('eeep-portal-2026', get_template_directory_uri() . '/assets/css/portal-2026.css', array('eeep-style'), $versao);
     wp_enqueue_style('eeep-requisitos-2026', get_template_directory_uri() . '/assets/css/requisitos-2026.css', array('eeep-portal-2026'), $versao);
+    wp_enqueue_style('eeep-documentos-anuais', get_template_directory_uri() . '/assets/css/documentos-anuais.css', array('eeep-requisitos-2026'), $versao);
     $slider_js = get_template_directory() . '/assets/js/portal-slider.js';
     $slider_versao = file_exists($slider_js) ? (string) filemtime($slider_js) : $versao;
     wp_enqueue_script('eeep-portal-slider', get_template_directory_uri() . '/assets/js/portal-slider.js', array(), $slider_versao, true);
