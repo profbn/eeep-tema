@@ -19,4 +19,7 @@ jobs:
       - name: Validar PHP
         run: find . -name '*.php' -type f -print0 | xargs -0 -n1 php -l
       - name: Validar JavaScript
-        run: node --check acessibilidade.js
+        run: |
+          node --check acessibilidade.js
+          node --check assets/js/portal-slider.js
+          node --check assets/js/documentos-admin.js
