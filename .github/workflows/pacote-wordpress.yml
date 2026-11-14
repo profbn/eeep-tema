@@ -9,6 +9,11 @@ on:
       - style.css
   workflow_dispatch:
 
+# Evitar publicações concorrentes do mesmo arquivo ZIP.
+concurrency:
+  group: eeep-tema-release-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -101,12 +106,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view v2.2.2 >/dev/null 2>&1; then
-            gh release upload v2.2.2 eeep-tema.zip --clobber
-          else
-            gh release create v2.2.2 eeep-tema.zip \
-              --target "$GITHUB_SHA" \
-              --title "EEEP Tema 2.2.2 - ZIP instalavel" \
-              --notes "Pacote para WordPress com raiz unica eeep-tema/. Testado com PHP e Node; instalar primeiro em ambiente de teste." \
-              --prerelease
-          fi
+          for tentativa in 1 2 3; do
+            if gh release view v2.2.2 >/dev/null 2>&1; then
+              if gh release upload v2.2.2 eeep-tema.zip --clobber; then
+                echo "Versao 2.2.2 publicada com sucesso"
+                exit 0
+              fi
+            else
+              if gh release create v2.2.2 eeep-tema.zip \
+                --target "$GITHUB_SHA" \
+                --title "EEEP Tema 2.2.2 - ZIP instalavel" \
+                --notes "Pacote para WordPress com raiz unica eeep-tema/. Testado com PHP e Node; instalar primeiro em ambiente de teste." \
+                --prerelease; then
+                exit 0
+              fi
+            fi
+            sleep 4
+          done
+          echo "Falha ao publicar eeep-tema.zip apos tres tentativas" >&2
+          exit 1
