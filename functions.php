@@ -1,19 +1,159 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
-// Carregar CSS e Scripts no WordPress
+// Organização modular das melhorias institucionais de 2026.
+require_once get_template_directory() . '/inc/requisitos-site-2026.php';
+require_once get_template_directory() . '/inc/documentos-anuais.php';
+
+// Recursos do tema: sem CSS duplicado e sem cache desativado a cada acesso.
 function eeep_carregar_recursos() {
-    wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), time());
+    $versao = wp_get_theme()->get('Version');
+    wp_enqueue_style('eeep-style', get_stylesheet_uri(), array(), $versao);
+    wp_enqueue_style('eeep-portal-2026', get_template_directory_uri() . '/assets/css/portal-2026.css', array('eeep-style'), $versao);
+    wp_enqueue_style('eeep-requisitos-2026', get_template_directory_uri() . '/assets/css/requisitos-2026.css', array('eeep-portal-2026'), $versao);
+    wp_enqueue_style('eeep-documentos-anuais', get_template_directory_uri() . '/assets/css/documentos-anuais.css', array('eeep-requisitos-2026'), $versao);
+    wp_enqueue_style('eeep-noticias-2026', get_template_directory_uri() . '/assets/css/noticias-2026.css', array('eeep-documentos-anuais'), $versao);
+    $slider_js = get_template_directory() . '/assets/js/portal-slider.js';
+    $slider_versao = file_exists($slider_js) ? (string) filemtime($slider_js) : $versao;
+    wp_enqueue_script('eeep-portal-slider', get_template_directory_uri() . '/assets/js/portal-slider.js', array(), $slider_versao, true);
+    wp_enqueue_script(
+        'eeep-acessibilidade',
+        get_template_directory_uri() . '/acessibilidade.js',
+        array(),
+        $versao,
+        true
+    );
+
+    // O componente de Libras é opcional e não deve interromper o menu se estiver indisponível.
+    wp_enqueue_script('eeep-vlibras', 'https://vlibras.gov.br/app/vlibras-plugin.js', array(), null, true);
+    wp_add_inline_script(
+        'eeep-vlibras',
+        "if (window.VLibras && window.VLibras.Widget) { new window.VLibras.Widget('https://vlibras.gov.br/app'); }"
+    );
 }
 add_action('wp_enqueue_scripts', 'eeep_carregar_recursos');
 
-// Suportes do Tema
+// Permitir administrar o menu e o logo diretamente pelo WordPress.
 function eeep_configuracoes_tema() {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
-    add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption'));
+    add_theme_support('custom-logo', array(
+        'height' => 80,
+        'width' => 280,
+        'flex-width' => true,
+        'flex-height' => true,
+    ));
+    add_theme_support('automatic-feed-links');
+    add_theme_support('responsive-embeds');
+    add_theme_support('html5', array('search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script'));
+    register_nav_menus(array(
+        'primary' => 'Menu principal (cabeçalho)',
+        'categories' => 'Categorias e subcategorias (opcional)',
+    ));
 }
 add_action('after_setup_theme', 'eeep_configuracoes_tema');
+
+// Links úteis até que um administrador configure Aparência > Menus.
+// Ao atribuir um menu à localização "Menu principal", o WordPress o substitui.
+function eeep_menu_padrao($args = array()) {
+    $base = home_url('/');
+    ?>
+    <ul id="primary-menu" class="nav-menu">
+        <li><a href="<?php echo esc_url($base); ?>">Início</a></li>
+        <li><a href="<?php echo esc_url($base . '#cursos'); ?>">Cursos</a></li>
+        <li><a href="<?php echo esc_url(home_url('/conteudos-interativos/')); ?>">Conteúdos interativos</a></li>
+        <li><a href="<?php echo esc_url(home_url('/sobre-a-escola/')); ?>">Sobre a escola</a></li>
+        <li><a href="<?php echo esc_url(get_post_type_archive_link('edital')); ?>">Editais</a></li>
+        <li><a href="<?php echo esc_url(get_post_type_archive_link('resultado')); ?>">Resultados</a></li>
+        <li><a class="nav-btn-yt" href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        <?php echo eeep_html_categorias_menu(); ?>
+    </ul>
+    <?php
+}
+
+/**
+ * Obter a primeira imagem da publicação para o destaque.
+ * A imagem destacada tem precedência no modelo.
+ */
+function eeep_obter_imagem_post($post_id) {
+    $conteudo = (string) get_post_field('post_content', (int) $post_id);
+    if (preg_match('/wp-image-([0-9]+)/i', $conteudo, $match)) {
+        $imagem = wp_get_attachment_image_url((int) $match[1], 'large');
+        if ($imagem) return $imagem;
+    }
+    if (preg_match('/"id"\s*:\s*([0-9]+)/', $conteudo, $match) && strpos($conteudo, 'wp:image') !== false) {
+        $imagem = wp_get_attachment_image_url((int) $match[1], 'large');
+        if ($imagem) return $imagem;
+    }
+    // URL direta, iframe embed ou link simples para YouTube.
+    $yt_pattern = '~(?:youtube\.com/(?:watch\?(?:[^"\s<>]*&)?v=|embed/|shorts/|live/)|youtu\.be/)([a-zA-Z0-9_-]{11})~';
+    if (preg_match($yt_pattern, html_entity_decode($conteudo, ENT_QUOTES, 'UTF-8'), $match)) {
+        return 'https://i.ytimg.com/vi/' . $match[1] . '/hqdefault.jpg';
+    }
+    if (preg_match('~<img[^>]+src=["\'](https?://[^"\']+)["\']~i', $conteudo, $match)) {
+        return esc_url_raw(html_entity_decode($match[1], ENT_QUOTES, 'UTF-8'));
+    }
+    return '';
+}
+
+/**
+ * Menu automático de categorias e subcategorias. Não depende do menu salvo.
+ * Apenas categorias criadas pelo administrador são exibidas (exceto a
+ * categoria padrão "Sem categoria").
+ */
+function eeep_html_categorias_menu() {
+    $padrao = (int) get_option('default_category');
+    if (has_nav_menu('categories')) {
+        // Menu opcional: o administrador controla a ordem e as subcategorias.
+        $itens = wp_nav_menu(array(
+            'theme_location' => 'categories',
+            'container' => false,
+            'echo' => false,
+            'items_wrap' => '%3$s',
+            'depth' => 4,
+        ));
+    } else {
+        // Sem menu opcional, lista automaticamente as categorias do WordPress.
+        $categorias = get_categories(array('hide_empty' => false, 'exclude' => array($padrao)));
+        if (is_wp_error($categorias) || empty($categorias)) {
+            return '';
+        }
+        $itens = wp_list_categories(array(
+            'taxonomy' => 'category',
+            'hide_empty' => false,
+            'hierarchical' => true,
+            'depth' => 0,
+            'exclude' => array($padrao),
+            'title_li' => '',
+            'echo' => false,
+            'orderby' => 'name',
+        ));
+        $itens = str_replace('class="children"', 'class="sub-menu"', $itens);
+    }
+
+    if (!is_string($itens) || trim($itens) === '') {
+        return '';
+    }
+    $pagina_blog = (int) get_option('page_for_posts');
+    $url = $pagina_blog ? get_permalink($pagina_blog) : home_url('/');
+    return '<li class="menu-item menu-item-has-children eeep-categories-menu">' .
+        '<a href="' . esc_url($url) . '">Categorias</a>' .
+        '<ul class="sub-menu">' . $itens . '</ul></li>';
+}
+
+function eeep_adicionar_categorias_menu($items, $args) {
+    if (isset($args->theme_location) && $args->theme_location === 'primary') {
+        $items .= eeep_html_categorias_menu();
+    }
+    return $items;
+}
+add_filter('wp_nav_menu_items', 'eeep_adicionar_categorias_menu', 10, 2);
+
+// O WordPress já registra "category" para Posts. Reafirmar a associação
+// torna explícito que artigos continuam categorizáveis com o tema ativo.
+add_action('init', function () {
+    register_taxonomy_for_object_type('category', 'post');
+}, 20);
 
 // Registrar Custom Post Type: Cursos Técnicos
 function eeep_registrar_cpt_curso() {
@@ -85,7 +225,7 @@ function eeep_autocriar_cursos() {
             wp_insert_post(array(
                 'post_title'   => $dados['post_title'],
                 'post_name'    => $slug,
-                'post_content' => $dados['post_content'],
+                'post_content' => '<p>Apresentação do curso em preparação. As informações oficiais serão disponibilizadas após conferência pela escola.</p>',
                 'post_excerpt' => $dados['post_excerpt'],
                 'post_status'  => 'publish',
                 'post_type'    => 'curso',

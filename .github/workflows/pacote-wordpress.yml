@@ -1,0 +1,109 @@
+name: Publicar ZIP WordPress eeep-tema
+
+on:
+  push:
+    branches:
+      - correcao-menu-header-dinamico
+    paths:
+      - .github/workflows/pacote-wordpress.yml
+      - style.css
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  empacotar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obter arquivos da versao corrigida
+        uses: actions/checkout@v4
+
+      - name: Conferir sintaxe PHP e JavaScript
+        run: |
+          find . -name '*.php' -type f -print0 | xargs -0 -n1 php -l
+          node --check acessibilidade.js
+          node --check assets/js/portal-slider.js
+          node --check assets/js/documentos-admin.js
+
+      - name: Criar ZIP sem pastas duplicadas
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+          paths = [
+              'style.css',
+              'functions.php',
+              'header.php',
+              'footer.php',
+              'front-page.php',
+              'index.php',
+              'single.php',
+              'single-curso.php',
+              'archive-curso.php',
+              'page.php',
+              'category.php',
+              'template-mapa-do-site.php',
+              '404.php',
+              'acessibilidade.js',
+              'logo.svg',
+              'logo.png',
+              'screenshot.png',
+              'assets/css/requisitos-2026.css',
+              'assets/css/documentos-anuais.css',
+              'assets/css/noticias-2026.css',
+              'inc/documentos-anuais.php',
+              'assets/js/documentos-admin.js',
+              'archive-edital.php',
+              'archive-resultado.php',
+              'single-edital.php',
+              'single-resultado.php',
+              'template-parts/arquivo-documentos.php',
+              'template-parts/documento-individual.php',
+              'inc/requisitos-site-2026.php',
+              'template-parts/carrossel-cursos.php',
+              'page-conteudos-interativos.php',
+              'taxonomy-area_curso.php',
+              'assets/css/portal-2026.css',
+              'assets/js/portal-slider.js',
+              'template-parts/carrossel-destaques.php',
+              'README.md',
+          ]
+          with ZipFile('eeep-tema.zip', 'w', ZIP_DEFLATED, compresslevel=7) as archive:
+              for name in paths:
+                  path = Path(name)
+                  if not path.is_file():
+                      raise FileNotFoundError(name)
+                  archive.write(path, 'eeep-tema/' + name)
+          with ZipFile('eeep-tema.zip') as archive:
+              names = archive.namelist()
+              assert 'eeep-tema/style.css' in names
+              assert 'eeep-tema/functions.php' in names
+              assert all(name.startswith('eeep-tema/') for name in names)
+              assert not any('eeep-tema-correcao-menu-header-dinamico' in name for name in names)
+              assert not any(name.startswith('eeep-tema/eeep-tema/') for name in names)
+              bad = archive.testzip()
+              assert bad is None, f'ZIP corrompido: {bad}'
+              print('OK: %d arquivos. Pasta raiz: eeep-tema/' % len(names))
+          PY
+
+      - name: Guardar pacote instalavel
+        uses: actions/upload-artifact@v4
+        with:
+          name: eeep-tema-zip-instalavel
+          path: eeep-tema.zip
+          retention-days: 30
+
+      - name: Publicar ZIP da versao 2.2.1 como pre-lancamento
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v2.2.1 >/dev/null 2>&1; then
+            gh release upload v2.2.1 eeep-tema.zip --clobber
+          else
+            gh release create v2.2.1 eeep-tema.zip \
+              --target "$GITHUB_SHA" \
+              --title "EEEP Tema 2.2.1 - ZIP instalavel" \
+              --notes "Pacote para WordPress com raiz unica eeep-tema/. Testado com PHP e Node; instalar primeiro em ambiente de teste." \
+              --prerelease
+          fi

@@ -3,124 +3,103 @@ if (!defined('ABSPATH')) exit;
 get_header();
 ?>
 
-<section class="home-hero">
-    <div class="container hero-content">
-        <span class="hero-badge">Ensino Médio Integrado à Educação Profissional</span>
-        <h1>EEEP Professor Antonio Valmir da Silva</h1>
-        <p>Ensino de excelência, formação técnica profissional e preparação para o mercado de trabalho e universidade.</p>
-        <a href="#cursos" class="btn btn-primary">Conheça nossos Cursos</a>
+<section class="eeep-about-teaser" aria-label="Nossa escola">
+    <div class="container eeep-about-teaser__grid">
+        <div>
+            <span class="eeep-section-eyebrow">Nossa escola</span>
+            <h2>Conheça a EEEP Professor Antônio Valmir da Silva</h2>
+            <p>História da instituição, trajetória escolar e informações sobre a origem de seu nome.</p>
+        </div>
+        <a class="eeep-about-teaser__link" href="<?php echo esc_url(home_url('/sobre-a-escola/')); ?>">
+            Sobre a escola <span aria-hidden="true">↗</span>
+        </a>
     </div>
 </section>
 
-<section class="home-atalhos">
+<?php
+// O ano e a descrição são sempre os da publicação mais recente cadastrada.
+$edital_recente = eeep_documento_mais_recente('edital');
+$resultado_recente = eeep_documento_mais_recente('resultado');
+?>
+<section class="home-atalhos eeep-home-servicos" aria-label="Editais, resultados e redes sociais">
     <div class="container">
-        <div class="atalhos-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener" class="atalho-card">
-                <h3>📑 Edital 2026</h3>
-                <p>Edital de Inscrição Valmir 2026 (PDF)</p>
+        <div class="atalhos-grid">
+            <a href="<?php echo esc_url(get_post_type_archive_link('edital')); ?>" class="atalho-card eeep-atalho-documento">
+                <span class="eeep-atalho-icone" aria-hidden="true">📑</span>
+                <h3>Editais</h3>
+                <?php if ($edital_recente) : ?>
+                    <p><strong>Mais recente: <?php echo esc_html(eeep_documento_ano($edital_recente->ID)); ?></strong></p>
+                    <p><?php echo esc_html(get_the_title($edital_recente)); ?></p>
+                <?php else : ?>
+                    <p>Acesse os editais publicados pela escola, organizados por ano.</p>
+                <?php endif; ?>
+                <span class="eeep-atalho-acao">Consultar todos os editais ↗</span>
             </a>
-            <a href="<?php echo esc_url(get_template_directory_uri() . '/pdf/resultado-2025.pdf'); ?>" target="_blank" rel="noopener" class="atalho-card">
-                <h3>📊 Resultado 2025</h3>
-                <p>Resultado Final - Processo Seletivo (PDF)</p>
+
+            <a href="<?php echo esc_url(get_post_type_archive_link('resultado')); ?>" class="atalho-card eeep-atalho-documento">
+                <span class="eeep-atalho-icone" aria-hidden="true">📊</span>
+                <h3>Resultados</h3>
+                <?php if ($resultado_recente) : ?>
+                    <p><strong>Mais recente: <?php echo esc_html(eeep_documento_ano($resultado_recente->ID)); ?></strong></p>
+                    <p><?php echo esc_html(get_the_title($resultado_recente)); ?></p>
+                <?php else : ?>
+                    <p>Consulte os resultados publicados pela escola, por ano.</p>
+                <?php endif; ?>
+                <span class="eeep-atalho-acao">Consultar todos os resultados ↗</span>
             </a>
-            <a href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener" class="atalho-card">
-                <h3>📺 Canal no YouTube</h3>
-                <p>Acompanhe os vídeos e eventos da escola</p>
+
+            <a href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener noreferrer" class="atalho-card">
+                <span class="eeep-atalho-icone" aria-hidden="true">▶</span>
+                <h3>Canal no YouTube</h3>
+                <p>Vídeos, atividades e eventos da comunidade escolar.</p>
+                <span class="eeep-atalho-acao">Acessar canal ↗</span>
+            </a>
+
+            <a href="https://www.instagram.com/eeepprofessorvalmir/" target="_blank" rel="noopener noreferrer" class="atalho-card">
+                <span class="eeep-atalho-icone" aria-hidden="true">◎</span>
+                <h3>Instagram</h3>
+                <p>Acompanhe as publicações e novidades da escola.</p>
+                <span class="eeep-atalho-acao">Abrir Instagram ↗</span>
             </a>
         </div>
     </div>
 </section>
 
-<section id="cursos" class="home-cursos">
+<?php
+// Primeira seção: cinco cursos técnicos, com transição automática a cada 5s.
+get_template_part('template-parts/carrossel-cursos');
+?>
+
+<section id="interativos" class="eeep-home-interactives" aria-labelledby="eeep-interactive-title">
     <div class="container">
-        <h2 style="color: var(--verde-brasil); margin-bottom: 20px;">Nossos Cursos Técnicos</h2>
-        <div class="cursos-grid">
-            <a href="<?php echo esc_url(home_url('/curso/administracao')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Gestão</span>
-                    <h3>Técnico em Administração</h3>
-                    <p>Gestão empresarial, recursos humanos, finanças e logística organizacional.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/edificacoes')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Construção Civil</span>
-                    <h3>Técnico em Edificações</h3>
-                    <p>Desenho técnico, projetos arquitetônicos, medições e acompanhamento de obras.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/eletromecanica')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Indústria</span>
-                    <h3>Técnico em Eletromecânica</h3>
-                    <p>Manutenção industrial, automação, circuitos elétricos e sistemas mecânicos.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/logistica')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Logística</span>
-                    <h3>Técnico em Logística</h3>
-                    <p>Gestão de estoque, cadeia de suprimentos, transporte e distribuição.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
-            <a href="<?php echo esc_url(home_url('/curso/informatica')); ?>" class="curso-card-link">
-                <article class="curso-card">
-                    <span class="curso-tag">Tecnologia</span>
-                    <h3>Técnico em Informática</h3>
-                    <p>Desenvolvimento de software, redes de computadores, banco de dados e sistemas.</p>
-                    <span class="curso-saiba-mais">Ver detalhes do curso →</span>
-                </article>
-            </a>
+        <div class="eeep-section-intro">
+            <div>
+                <span class="eeep-section-eyebrow">Aprender e explorar</span>
+                <h2 id="eeep-interactive-title">Conteúdos interativos por curso</h2>
+                <p>Explore materiais e atividades publicados para cada uma das cinco formações técnicas.</p>
+            </div>
+            <a class="eeep-section-more" href="<?php echo esc_url(home_url('/conteudos-interativos/')); ?>">Ver todos os conteúdos ↗</a>
         </div>
-    </div>
-</section>
-
-<section class="home-noticias">
-    <div class="container">
-        <h2 style="color: var(--azul-brasil); margin-bottom: 24px;">Últimas Notícias e Avisos</h2>
-        <div class="noticias-grid">
-            <?php
-            $noticias_query = new WP_Query(array(
-                'post_type'      => 'post',
-                'posts_per_page' => 3,
-                'post_status'    => 'publish'
-            ));
-
-            if ($noticias_query->have_posts()) :
-                while ($noticias_query->have_posts()) : $noticias_query->the_post();
+        <div class="eeep-interactive-grid">
+            <?php foreach (eeep_cursos_requeridos() as $slug => $nome) :
+                $termo = get_term_by('slug', $slug, 'area_curso');
+                $quantidade = $termo && !is_wp_error($termo) ? (int) $termo->count : 0;
             ?>
-                    <article class="noticia-card">
-                        <?php if (has_post_thumbnail()) : ?>
-                            <a href="<?php the_permalink(); ?>" class="noticia-img-link">
-                                <?php the_post_thumbnail('medium'); ?>
-                            </a>
-                        <?php endif; ?>
-                        <div class="noticia-body">
-                            <span class="noticia-data">📅 <?php echo get_the_date('d/m/Y'); ?></span>
-                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                            <p><?php echo wp_trim_words(get_the_excerpt(), 18); ?></p>
-                            <a href="<?php the_permalink(); ?>" class="noticia-ler-mais">Ler notícia completa →</a>
-                        </div>
-                    </article>
-            <?php
-                endwhile;
-                wp_reset_postdata();
-            else :
-            ?>
-                <article class="noticia-card">
-                    <div class="noticia-body">
-                        <span class="noticia-data">📅 <?php echo date('d/m/Y'); ?></span>
-                        <h3>Bem-vindo ao Novo Portal da EEEP Professor Antonio Valmir da Silva</h3>
-                        <p>Acompanhe aqui as notícias, avisos e eventos escolares publicados pela nossa equipa.</p>
-                    </div>
-                </article>
-            <?php endif; ?>
+                <a class="eeep-interactive-tile" href="<?php echo esc_url(eeep_link_area_curso($slug)); ?>">
+                    <span class="eeep-interactive-tile__icon" aria-hidden="true">↗</span>
+                    <strong><?php echo esc_html($nome); ?></strong>
+                    <small><?php echo $quantidade > 0
+                        ? esc_html(sprintf(_n('%s material', '%s materiais', $quantidade, 'eeep-tema'), number_format_i18n($quantidade)))
+                        : 'Materiais em preparação'; ?></small>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
+
+<?php
+// Publicações recentes ficam em um carrossel separado, depois dos serviços.
+get_template_part('template-parts/carrossel-destaques');
+?>
 
 <?php get_footer(); ?>
