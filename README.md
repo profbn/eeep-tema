@@ -1,3 +1,27 @@
+# EEEP Tema 2.2.2 — notícias por categoria na página inicial
+
+## Nova grade editorial de quatro notícias
+
+Abaixo do carrossel **Portal de notícias e informações**, a home exibe quatro colunas no computador, com foto, categoria colorida, manchete, autor, data e resumo. Em tablets aparecem duas colunas e, no celular, uma coluna.
+
+### Escolher as categorias dos quatro cartões
+
+1. No WordPress, cadastre as categorias e subcategorias em **Posts → Categorias** e publique suas notícias.
+2. Acesse **Aparência → Personalizar → Notícias por categoria**.
+3. Escolha a categoria desejada para o **Cartão 1**, **Cartão 2**, **Cartão 3** e **Cartão 4**; salve em **Publicar**.
+4. Cada cartão mostra automaticamente o **post publicado mais recente da categoria selecionada**. O sistema evita repetir um post em dois cartões, mesmo quando ele pertence a várias categorias.
+5. A opção **Mais recentes (sem filtro)** busca o próximo post recente ainda não exibido. É o padrão das quatro posições até que o administrador defina as categorias.
+6. Se uma categoria escolhida ainda não tiver notícia publicada (ou só tiver um post já exibido), aquele cartão ficará vazio até existir outra publicação naquela categoria. Notícias de outras categorias não serão exibidas indevidamente.
+7. Para melhores resultados, defina uma **Imagem destacada** em cada notícia. Na ausência dela, o tema tenta obter imagem do corpo ou miniatura de vídeo e, se não houver, utiliza um fundo gráfico institucional.
+
+A grade é independente do carrossel superior: **os cinco posts mais recentes continuam girando a cada cinco segundos no Portal de notícias e informações**. Categorias e matérias podem mudar sem editar arquivos PHP. O restante das seções da home permanece inalterado.
+
+## Instalação
+
+Baixe a versão 2.2.2 do Release como **eeep-tema.zip**, com uma única pasta raiz \`eeep-tema/\`. Faça backup antes de atualizar o tema e confirme a apresentação em seu WordPress de testes. Nenhum dado do banco de dados é apagado pela atualização do tema.
+
+---
+
 # EEEP Tema 2.2.1 — organização da página inicial e novo slide de notícias
 
 A página inicial segue esta ordem:
