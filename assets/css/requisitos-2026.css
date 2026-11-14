@@ -273,3 +273,35 @@ body.alto-contraste .eeep-interactive-tile strong,
 body.alto-contraste .eeep-area-card h2 { color:#ff0!important; }
 body.alto-contraste .eeep-about-teaser__link,
 body.alto-contraste .eeep-grade-download a { background:#ff0!important; color:#000!important; }
+
+
+/* Home enxuta: conteúdos interativos primeiro, seguidos dos carrosséis. */
+.home .eeep-home-interactives {
+    padding: 28px 0 30px;
+    background: #edf6f1;
+}
+.home .eeep-home-interactives .eeep-section-intro {
+    margin-bottom: 18px;
+}
+.home .eeep-interactive-tile {
+    min-height: 138px;
+    padding: 17px 19px;
+    gap: 7px;
+}
+.home .eeep-interactive-tile__icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1.16rem;
+}
+.home .eeep-featured--courses {
+    padding-top: 17px;
+    padding-bottom: 0;
+}
+.home .eeep-featured:not(.eeep-featured--courses) {
+    padding-top: 32px;
+    padding-bottom: 36px;
+}
+@media (max-width: 680px) {
+    .home .eeep-home-interactives { padding: 21px 0 25px; }
+    .home .eeep-interactive-tile { min-height: 116px; }
+}
