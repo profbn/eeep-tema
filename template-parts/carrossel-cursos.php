@@ -15,7 +15,7 @@ foreach ($slugs_cursos as $slug) {
 }
 $quantidade = count($cursos_slider);
 ?>
-<section class="eeep-featured eeep-featured--courses" aria-label="Cursos técnicos em destaque">
+<section id="cursos" class="eeep-featured eeep-featured--courses" aria-label="Cursos técnicos em destaque">
     <div class="portal-shell">
         <div class="eeep-featured__eyebrow">
             <span class="eeep-live-dot" aria-hidden="true"></span>
