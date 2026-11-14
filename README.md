@@ -1,3 +1,17 @@
+# EEEP Tema 2.2.1 — organização da página inicial e novo slide de notícias
+
+A página inicial segue esta ordem:
+1. **Logo abaixo do menu principal:** Nossa escola, Editais, Resultados, YouTube e Instagram.
+2. **Carrossel dos cinco cursos técnicos:** transição automática de 5 em 5 segundos.
+3. **Conteúdos interativos por curso:** cinco áreas dinâmicas.
+4. **Portal de notícias e informações:** novo carrossel editorial, com imagem à esquerda e texto legível à direita, versão para celular, setas e indicadores. Busca os cinco posts mais recentes e também avança a cada 5 segundos.
+
+Os cartões de Editais e Resultados continuam dinâmicos, com consulta ao ano mais recente. O restante das páginas internas e cadastros foi mantido.
+
+O ZIP instalável da versão 2.2.1 continua usando exclusivamente a pasta principal `eeep-tema/`. Use o arquivo do Release, não o Download ZIP da branch. A troca de tema exige backup e teste no WordPress, especialmente se o banco ainda apontar para o antigo diretório duplicado.
+
+---
+
 # EEEP Tema 2.2.0 — Editais e Resultados dinâmicos
 
 **Mudança principal:** Editais e Resultados não ficam mais vinculados a PDFs fixos no código. São cadastrados e publicados pelo painel do WordPress, com ano, título, descrição e arquivo PDF; novos anos aparecem automaticamente, sem apagar os anteriores.
