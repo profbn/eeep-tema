@@ -1,6 +1,9 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+// Organização modular das melhorias institucionais de 2026.
+require_once get_template_directory() . '/inc/requisitos-site-2026.php';
+
 // Recursos do tema: sem CSS duplicado e sem cache desativado a cada acesso.
 function eeep_carregar_recursos() {
     $versao = wp_get_theme()->get('Version');
@@ -55,6 +58,8 @@ function eeep_menu_padrao($args = array()) {
     <ul id="primary-menu" class="nav-menu">
         <li><a href="<?php echo esc_url($base); ?>">Início</a></li>
         <li><a href="<?php echo esc_url($base . '#cursos'); ?>">Cursos</a></li>
+        <li><a href="<?php echo esc_url(home_url('/conteudos-interativos/')); ?>">Conteúdos interativos</a></li>
+        <li><a href="<?php echo esc_url(home_url('/sobre-a-escola/')); ?>">Sobre a escola</a></li>
         <li><a href="<?php echo esc_url($tema . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener noreferrer">Edital 2026</a></li>
         <li><a href="<?php echo esc_url($tema . '/pdf/resultado-2025.pdf'); ?>" target="_blank" rel="noopener noreferrer">Resultado 2025</a></li>
         <li><a class="nav-btn-yt" href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener noreferrer">YouTube</a></li>
