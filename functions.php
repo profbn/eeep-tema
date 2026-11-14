@@ -3,6 +3,7 @@ if (!defined('ABSPATH')) exit;
 
 // Organização modular das melhorias institucionais de 2026.
 require_once get_template_directory() . '/inc/requisitos-site-2026.php';
+require_once get_template_directory() . '/inc/documentos-anuais.php';
 
 // Recursos do tema: sem CSS duplicado e sem cache desativado a cada acesso.
 function eeep_carregar_recursos() {
@@ -54,15 +55,14 @@ add_action('after_setup_theme', 'eeep_configuracoes_tema');
 // Ao atribuir um menu à localização "Menu principal", o WordPress o substitui.
 function eeep_menu_padrao($args = array()) {
     $base = home_url('/');
-    $tema = get_template_directory_uri();
     ?>
     <ul id="primary-menu" class="nav-menu">
         <li><a href="<?php echo esc_url($base); ?>">Início</a></li>
         <li><a href="<?php echo esc_url($base . '#cursos'); ?>">Cursos</a></li>
         <li><a href="<?php echo esc_url(home_url('/conteudos-interativos/')); ?>">Conteúdos interativos</a></li>
         <li><a href="<?php echo esc_url(home_url('/sobre-a-escola/')); ?>">Sobre a escola</a></li>
-        <li><a href="<?php echo esc_url($tema . '/pdf/edital-2026.pdf'); ?>" target="_blank" rel="noopener noreferrer">Edital 2026</a></li>
-        <li><a href="<?php echo esc_url($tema . '/pdf/resultado-2025.pdf'); ?>" target="_blank" rel="noopener noreferrer">Resultado 2025</a></li>
+        <li><a href="<?php echo esc_url(get_post_type_archive_link('edital')); ?>">Editais</a></li>
+        <li><a href="<?php echo esc_url(get_post_type_archive_link('resultado')); ?>">Resultados</a></li>
         <li><a class="nav-btn-yt" href="https://www.youtube.com/@EEEPPROFANTONIOVALMIR" target="_blank" rel="noopener noreferrer">YouTube</a></li>
         <?php echo eeep_html_categorias_menu(); ?>
     </ul>
