@@ -1,4 +1,49 @@
-# EEEP Tema 2.1.1 — requisitos institucionais 2026
+# EEEP Tema 2.2.0 — Editais e Resultados dinâmicos
+
+**Mudança principal:** Editais e Resultados não ficam mais vinculados a PDFs fixos no código. São cadastrados e publicados pelo painel do WordPress, com ano, título, descrição e arquivo PDF; novos anos aparecem automaticamente, sem apagar os anteriores.
+
+## Como adicionar um novo edital
+
+1. Entre no WordPress e abra **Editais → Adicionar novo**.
+2. Escreva o título, por exemplo: **Edital de inscrições — 2027** (apenas exemplo de nomenclatura, não um edital real).
+3. Em **Ano e documento oficial**, indique o ano do processo seletivo e use **Selecionar PDF na Biblioteca de Mídia** para escolher o documento verdadeiro. Alternativamente, cole o link HTTPS do PDF.
+4. Escreva a descrição ou informações de inscrição no editor. Verifique a versão oficial antes de publicar.
+5. Clique **Publicar**. A página **/editais/** já exibe o novo edital e mantém todos os anos anteriores, com filtro de ano. A home passa a mostrar automaticamente o edital mais recente pelo ano cadastrado.
+
+## Como adicionar um novo resultado
+
+1. Abra **Resultados → Adicionar novo**.
+2. Insira título e descrição, informe o **ano do processo seletivo** e escolha o PDF do resultado oficial.
+3. Clique **Publicar**. A página **/resultados/** mostra o documento sem alterar arquivos do tema; o cartão da home passa a apontar para o acervo atualizado.
+4. Se houver mais de uma chamada ou retificação no mesmo ano, crie outra publicação: o sistema mantém todas.
+
+**Importante:** arquivos permanecem no banco e na Biblioteca de Mídia do WordPress, não dentro da pasta do tema. Uma atualização do ZIP não apaga os documentos cadastrados. Faça backup do banco de dados e de \`wp-content/uploads/\` antes de migrar.
+
+## Ordem atual da página inicial
+
+1. Carrossel dos **cinco cursos técnicos** (avança a cada **5 segundos**).
+2. **Conteúdos interativos por curso**.
+3. **Nossa escola**, com link para a página institucional.
+4. Quatro atalhos: **Editais**, **Resultados**, **Canal no YouTube** e **Instagram** da escola.
+5. Carrossel das **cinco publicações recentes**.
+
+As áreas de cursos, documentos e posts são alimentadas pelo WordPress, e não por arquivos PDF definidos no tema. Os PDFs antigos armazenados no repositório não são incluídos no novo ZIP por serem referências históricas não verificadas para publicação atual.
+
+## Configuração dos links no menu
+
+No painel **Aparência → Menus**, adicione os arquivos **Editais** e **Resultados** ao seu menu principal, usando os endereços \`/editais/\` e \`/resultados/\`. Se o menu não estiver configurado, o menu padrão do tema já inclui os dois links. Em **Configurações → Links permanentes**, clique **Salvar alterações** uma vez se receber erro 404 nos endereços.
+
+## Atualização do WordPress
+
+Use o arquivo \`eeep-tema.zip\` do release **v2.2.0**, que tem **uma única pasta \`eeep-tema/\`**. Não extraia a pasta do tema dentro de outra pasta \`eeep-tema/\`. Em WordPress Multisite, os documentos cadastrados são específicos de cada site da rede.
+
+## Validação
+
+Verificações automáticas: sintaxe PHP, JavaScript e integridade estrutural do ZIP. Testes funcionais e visuais no WordPress da escola continuam necessários. Nenhum edital ou resultado fictício é criado automaticamente, pois documentos oficiais precisam ser conferidos antes da publicação.
+
+---
+
+# EEEP Tema 2.1.1 — requisitos institucionais 2026 (versão anterior)
 
 Esta versão evolui o **tema existente** conforme o *Documento de Especificação de Requisitos e Melhorias do Site Institucional da Escola* (Caucaia, 2026). Não inventa históricos, logotipos, docentes ou currículos.
 
