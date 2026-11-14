@@ -1,6 +1,15 @@
-# EEEP Tema 2.1.0 — requisitos institucionais 2026
+# EEEP Tema 2.1.1 — requisitos institucionais 2026
 
 Esta versão evolui o **tema existente** conforme o *Documento de Especificação de Requisitos e Melhorias do Site Institucional da Escola* (Caucaia, 2026). Não inventa históricos, logotipos, docentes ou currículos.
+
+## Página inicial simplificada — versão 2.1.1
+
+A página inicial apresenta somente estas áreas, nesta ordem:
+1. **Conteúdos interativos por curso**, imediatamente abaixo do menu, com os cinco cursos.
+2. **Carrossel dos cinco cursos técnicos**, automático a cada 5 segundos, com controles acessíveis.
+3. **Carrossel das cinco publicações mais recentes**, também automático a cada 5 segundos.
+
+Foram retiradas **da home** as caixas repetitivas de apresentação “Sobre a escola”, Edital, Resultado, YouTube, a grade de cartões que repetia os cursos do slide e a lista de notícias que repetia o carrossel de posts. Isso **não exclui** as páginas institucionais, arquivos de edital ou posts existentes. O acesso à página “Sobre a escola” e aos demais links pode continuar pelo menu do WordPress.
 
 ## Requisitos implementados
 
