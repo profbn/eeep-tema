@@ -1,3 +1,66 @@
+# EEEP Tema 2.1.0 — requisitos institucionais 2026
+
+Esta versão evolui o **tema existente** conforme o *Documento de Especificação de Requisitos e Melhorias do Site Institucional da Escola* (Caucaia, 2026). Não inventa históricos, logotipos, docentes ou currículos.
+
+## Requisitos implementados
+
+| Requisito | Situação | Onde configurar |
+|---|---|---|
+| RF-01 Logomarca oficial | Suporte a logo oficial; upload pendente | Aparência → Personalizar → Identidade do site |
+| RF-02 a RF-04 Sobre, história e origem do nome | Página criada com campos de texto editáveis e avisos de validação | Páginas → Sobre a escola |
+| RF-05 Docentes | Opcional, não cadastrado sem autorização | Página Sobre a escola |
+| RF-06/07 Conteúdos interativos nos cinco cursos | Página por curso, com materiais associados a Posts | Posts → Curso relacionado |
+| RF-08/09 Páginas dos cinco cursos | Mantidas, com descrições, objetivos e áreas | Cursos Técnicos → Editar |
+| RF-10 Grade curricular | Três campos por ano, um componente por linha, e PDF opcional | Cursos Técnicos → Informações oficiais e grade curricular |
+| RF-11 Informações para candidatos | Seção padrão com dados editáveis do curso | Cursos Técnicos → Editar |
+| RF-12 Edital | Link exibido somente quando cadastrado e conferido | Cursos Técnicos → Link do edital oficial |
+| RNF-01 a RNF-08 | Estrutura responsiva, legível, consistente e acessível | Verificação final no WordPress necessário |
+
+### Carrosséis
+
+- **Abaixo do menu da página inicial:** carrossel dedicado aos **cinco cursos técnicos**, transição automática de **5 em 5 segundos**, setas, indicadores e pausa.
+- **Mais abaixo na página inicial:** carrossel das **cinco publicações mais recentes**, também a cada 5 segundos. Assim as notícias continuam disponíveis sem substituir o destaque dos cursos.
+- O movimento automático é desligado se o sistema do visitante solicita movimento reduzido; os controles manuais continuam disponíveis.
+- Foto de cada slide de curso: edite o curso e selecione **Imagem destacada**. Sem foto, aparece fundo gráfico, não uma imagem inventada.
+
+### Preparar conteúdos de cada curso
+
+1. Em **Cursos Técnicos**, abra cada um dos cinco cursos.
+2. Revise o texto da apresentação e as descrições que já existiam no banco de dados. Textos antigos não são apagados automaticamente para preservar seu trabalho.
+3. Preencha objetivos, áreas de estudo, duração, carga horária e modalidade somente com dados confirmados.
+4. No painel **Informações oficiais e grade curricular**, informe as disciplinas separadas por linhas para o **1º**, **2º** e **3º ano**.
+5. Opcionalmente, informe o PDF da grade curricular e o link do edital oficial aplicável.
+6. Salve o curso e verifique o resultado na página pública.
+
+### Associar atividades aos cursos
+
+1. No WordPress, abra **Posts → Adicionar novo**.
+2. Cadastre uma atividade, vídeo, material ou conteúdo relacionado.
+3. No painel lateral **Curso relacionado**, marque uma das cinco áreas: Administração, Edificações, Eletromecânica, Logística ou Informática.
+4. Publique o post. Ele aparecerá na listagem de conteúdos correspondente.
+5. O painel de **Categorias** continua disponível separadamente para matérias/subcategorias, como Informática → Redes → IPv6.
+6. Acesse **Páginas → Conteúdos interativos** para visualizar os cinco cursos. Mesmo sem material publicado, a área de cada curso continua visível.
+
+### Seção institucional e logomarca
+
+- Visite **Páginas → Sobre a escola** e substitua os avisos provisórios pela história oficial da instituição e pela explicação validada da origem de seu nome.
+- Professores só devem ser publicados com confirmação e autorização institucional.
+- Envie a logomarca **oficial** em **Identidade do site**. Até esse passo, o cabeçalho exibe uma sigla textual EEEP e não utiliza uma imagem gerada por IA como se fosse a oficial.
+
+### Instalação sem pastas duplicadas
+
+O pacote oficial do release é **eeep-tema.zip**. Ele deve conter apenas uma pasta raiz \`eeep-tema/\`, com \`style.css\` e \`functions.php\` diretamente dentro dela. Não descompacte dentro de uma pasta \`eeep-tema\` preexistente.
+
+**Atenção ao erro anterior do Docker:** se o banco ainda estiver referenciando \`eeep-tema/eeep-tema-correcao-menu-header-dinamico\`, reinstalar o ZIP sozinho não corrigirá o valor da opção \`stylesheet\`. Corrija a ativação do tema com backup e no site correto do WordPress / Multisite.
+
+## Limitações / validação pendente
+
+O documento fornecido não inclui a logomarca oficial, a história confirmada, as grades curriculares, o cadastro autorizado de docentes nem editais atualizados. A implementação deixa locais apropriados para publicá-los, mas esses critérios somente estarão integralmente atendidos após revisão por representantes da escola.
+
+Os testes automáticos verificam sintaxe PHP e JavaScript e integridade do pacote ZIP. A navegação no WordPress real, o desempenho, a responsividade em dispositivos e a acessibilidade devem ser testados antes da publicação.
+
+---
+
 # Tema EEEP — WordPress institucional
 
 Tema clássico para WordPress, com cursos técnicos, notícias, navegação responsiva e recursos básicos de acessibilidade.
