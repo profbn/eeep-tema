@@ -200,3 +200,13 @@ function eeep_documentos_ativar_tema() {
     flush_rewrite_rules(false);
 }
 add_action('after_switch_theme', 'eeep_documentos_ativar_tema');
+
+
+/** Reconstruir URLs uma única vez ao acessar o painel após atualização do tema. */
+function eeep_documentos_atualizar_links_permanentes() {
+    if (!current_user_can('manage_options')) return;
+    if (get_option('eeep_documentos_rewrites_220') === 'ok') return;
+    flush_rewrite_rules(false);
+    update_option('eeep_documentos_rewrites_220', 'ok', false);
+}
+add_action('admin_init', 'eeep_documentos_atualizar_links_permanentes');
